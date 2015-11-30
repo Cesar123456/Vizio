@@ -997,7 +997,7 @@ public class Main extends javax.swing.JFrame {
         atr_nombre.setText("");
         atr_valor.setText("");
         crear_atributo.setModal(true);
-        crear_atributo.setSize(513, 250);
+        crear_atributo.setSize(513, 260);
 
         crear_atributo.setResizable(false);
         crear_atributo.setLocationRelativeTo(comp);
