@@ -10,7 +10,7 @@ public class Clase {
     private ArrayList<Método> métodos = new ArrayList();
     private Clase padre;
     private String visibilidad = "";
-    private boolean abstracto;
+    private boolean abstracto = false;
 
     public Clase() {
     }
@@ -23,16 +23,66 @@ public class Clase {
 
     public void createConstructor() {
         Método constructor = new Método(nombre, "", "", "public", false);
-        String cuerpo = "\n";
+        String cuerpo = "";
+        Método constructorS = new Método(nombre, "", "", "public", false);
         for (Atributo atributo : atributos) {
-            cuerpo += "this." + atributo.getNombre() + " = " + atributo.getNombre();
-        }
-        Método constructorS = new Método(nombre, "", cuerpo, "public", false);
-        for (Atributo atributo : atributos) {
+            cuerpo += "this." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
+            cuerpo += "\r\n";
             constructorS.getParametros().add(atributo);
         }
-        métodos.add(constructor);
-        métodos.add(constructor);
+        cuerpo += "\r\n";
+        if (padre != null) {
+            for (Atributo atributo : padre.getAtributos()) {
+                cuerpo += "      super." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
+                cuerpo += "\r\n";
+                constructorS.getParametros().add(atributo);
+            }
+
+        }
+        constructorS.setCuerpo(cuerpo);
+        if (métodos.indexOf(constructor) == -1 && métodos.indexOf(constructorS) == -1) {
+            métodos.add(0, constructor);
+            métodos.add(1, constructorS);
+        }
+    }
+
+    public void GetterAndSetters() {
+        for (Atributo atributo : atributos) {
+            String nombre = "get";
+            for (int i = 0; i < atributo.getNombre().length(); i++) {
+                if (i == 0) {
+                    nombre += atributo.getNombre().charAt(i) + "".toUpperCase();
+                } else {
+                    nombre += atributo.getNombre().charAt(i);
+                }
+            }
+            String retorno = atributo.getTipo();
+            String cuerpo = "return " + atributo.getNombre() + ";";
+            Método get = new Método(nombre, retorno, cuerpo, "public", false);
+            nombre = "set";
+            for (int i = 0; i < atributo.getNombre().length(); i++) {
+                if (i == 0) {
+                    nombre += atributo.getNombre().charAt(i) + "".toUpperCase();
+                } else {
+                    nombre += atributo.getNombre().charAt(i);
+                }
+            }
+            retorno = "void";
+            cuerpo = "this." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
+            Método set = new Método(nombre, retorno, cuerpo, "public", false);
+            set.getParametros().add(atributo);
+            if (métodos.indexOf(set) == -1 && métodos.indexOf(get) == -1) {
+                métodos.add(get);
+                métodos.add(set);
+            }
+        }
+    }
+
+    public void setToString() {
+        Método toString = new Método("toString", "String", "return \"nombre\";", "public", false, true);
+        if (métodos.indexOf(toString) == -1) {
+            métodos.add(toString);
+        }
     }
 
     public Clase(boolean abstracto) {
@@ -43,8 +93,8 @@ public class Clase {
         return abstracto;
     }
 
-    public void setAbtracto(boolean abtracto) {
-        this.abstracto = abtracto;
+    public void setAbstracto(boolean abstracto) {
+        this.abstracto = abstracto;
     }
 
     public String getNombre() {

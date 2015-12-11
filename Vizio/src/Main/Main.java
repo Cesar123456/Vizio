@@ -6,6 +6,10 @@
 package Main;
 
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.*;
 
 import org.jvnet.substance.SubstanceLookAndFeel;
@@ -24,6 +28,7 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 public class Main extends javax.swing.JFrame {
 
     ArrayList<Clase> clases = new ArrayList();
+    ArrayList<Interface> interfaces = new ArrayList();
     Clase clase = null;
     Método método = null;
     Interface Interface = null;
@@ -101,7 +106,6 @@ public class Main extends javax.swing.JFrame {
         menu_añadirTodo = new javax.swing.JMenu();
         añadir_atributo = new javax.swing.JMenuItem();
         añadir_método = new javax.swing.JMenuItem();
-        añadir_interface = new javax.swing.JMenuItem();
         menuMtd = new javax.swing.JPopupMenu();
         añadir_atributo1 = new javax.swing.JMenuItem();
         menuIntf = new javax.swing.JPopupMenu();
@@ -161,7 +165,6 @@ public class Main extends javax.swing.JFrame {
 
         clase_interfaces.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         clase_interfaces.setModel(new DefaultListModel());
-        clase_interfaces.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane6.setViewportView(clase_interfaces);
 
         clase_metodos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -574,15 +577,6 @@ public class Main extends javax.swing.JFrame {
         });
         menu_añadirTodo.add(añadir_método);
 
-        añadir_interface.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        añadir_interface.setText("Interface");
-        añadir_interface.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                añadir_interfaceActionPerformed(evt);
-            }
-        });
-        menu_añadirTodo.add(añadir_interface);
-
         menuClass_Kit.add(menu_añadirTodo);
 
         menuMtd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -624,7 +618,7 @@ public class Main extends javax.swing.JFrame {
         main_Clase.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         añadir_clase.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        añadir_clase.setText("Añadir Clase");
+        añadir_clase.setText("Añadir");
         añadir_clase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 añadir_claseActionPerformed(evt);
@@ -658,6 +652,11 @@ public class Main extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setText("Generar Códigos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -707,6 +706,10 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTree2);
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Proyecto");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Clases");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Interfaces");
+        treeNode1.add(treeNode2);
         uml.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         uml.setToolTipText("Diagrama UML");
         uml.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -773,6 +776,12 @@ public class Main extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         clase.setNombre(clase_nombre.getText());
         clase.setVisibilidad(clase_scope.getSelectedItem().toString());
+        int[] index = clase_interfaces.getSelectedIndices();
+        clase.setInterfaces(new ArrayList<Interface>());
+        DefaultListModel modelo = (DefaultListModel) clase_interfaces.getModel();
+        for (int i : index) {
+            clase.getInterfaces().add((Interface) modelo.getElementAt(i));
+        }
         if (!clase.equals(nodo_seleccionado.getUserObject())) {
             if (nodo_seleccionado.getUserObject() instanceof String) {
                 clase.setPadre(null);
@@ -784,7 +793,33 @@ public class Main extends javax.swing.JFrame {
             model.addElement(clase);
             model = (DefaultComboBoxModel) mtd_tipo.getModel();
             model.addElement(clase);
+            clases.add(clase);
         }
+        if (clase.getInterfaces().size() > 0) {
+            int abstr = JOptionPane.showConfirmDialog(crear_clase, "¿Su clase es abstracta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (abstr == 1) {
+                for (Interface ifc : clase.getInterfaces()) {
+                    for (Método mtdf : ifc.getMetodos()) {
+                        Método mt = new Método(mtdf.getNombre(), mtdf.getRetorno(), "", mtdf.getVisibilidad(), false, true);
+                        mt.setParametros(mtdf.getParametros());
+                        clase.getMétodos().add(mt);
+                    }
+                }
+                if (clase.getPadre() != null && clase.getPadre().isAbtracto()) {
+                    for (Método mtdf : clase.getPadre().getMétodos()) {
+                        if (mtdf.isAbstracto()) {
+                            Método mt = new Método(mtdf.getNombre(), mtdf.getRetorno(), "", mtdf.getVisibilidad(), false, true);
+                            mt.setParametros(mtdf.getParametros());
+                            clase.getMétodos().add(mt);
+                        }
+                    }
+                }
+                clase.setAbstracto(false);
+            } else {
+                clase.setAbstracto(true);
+            }
+        }
+
         DefaultTreeModel modeloArbol = (DefaultTreeModel) uml.getModel();
         modeloArbol.reload();
         crear_clase.setVisible(false);
@@ -792,6 +827,7 @@ public class Main extends javax.swing.JFrame {
         clase_metodos.setModel(new DefaultListModel());
         clase_atributos.setModel(new DefaultListModel());
         clase_interfaces.setModel(new DefaultListModel());
+        clase = null;
         this.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -802,16 +838,13 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_crear_claseMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (clase != null && método == null && Interface == null) {
+        if (clase != null && método == null) {
             agregarAtributo(clase);
-        }
-        if (clase != null & método != null && Interface == null) {
+        } else if (clase != null & método != null) {
             agregarAtributo(método);
-        }
-        if (clase != null && Interface != null && método == null) {
+        } else if (Interface != null && método == null) {
             agregarAtributo(Interface);
-        }
-        if (clase != null && método != null && Interface != null) {
+        } else if (método != null && Interface != null) {
             agregarAtributo(método);
         }
         atr_nombre.setText("");
@@ -822,11 +855,11 @@ public class Main extends javax.swing.JFrame {
         método.setNombre(mtd_nombre.getText());
         método.setRetorno(mtd_tipo.getSelectedItem().toString());
         método.setVisibilidad(this.mtd_scope.getSelectedItem().toString());
-        método.setCuerpo(mtd_nombre.getText());
+        método.setCuerpo(mtd_cuerpo.getText());
         if (clase != null && Interface == null) {
             agregarMétodo(clase);
         }
-        if (clase != null && Interface != null) {
+        if (Interface != null && clase == null) {
             agregarMétodo(Interface);
         }
         crear_método.setVisible(false);
@@ -835,6 +868,7 @@ public class Main extends javax.swing.JFrame {
         mtd_nombre.setText("");
         mtd_cuerpo.setText("");
         mtd_parametros.setModel(new DefaultListModel());
+        mtd_cuerpo.setEnabled(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void crear_métodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crear_métodoMouseClicked
@@ -857,10 +891,6 @@ public class Main extends javax.swing.JFrame {
         metodo(crear_interface);
     }//GEN-LAST:event_añadir_método1ActionPerformed
 
-    private void añadir_interfaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_interfaceActionPerformed
-        interf(crear_clase);
-    }//GEN-LAST:event_añadir_interfaceActionPerformed
-
     private void añadir_métodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_métodoActionPerformed
         metodo(crear_clase);
     }//GEN-LAST:event_añadir_métodoActionPerformed
@@ -876,8 +906,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_crear_interfaceMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        agregarInterface(clase);
-
+        agregarInterface(nodo_seleccionado);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void intf_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intf_nombreActionPerformed
@@ -885,47 +914,149 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_intf_nombreActionPerformed
 
     private void umlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_umlMouseClicked
+        int row = uml.getClosestRowForLocation(evt.getX(), evt.getY());
+        uml.setSelectionRow(row);
+        Object v1 = uml.getSelectionPath().getLastPathComponent();
+        nodo_seleccionado = (DefaultMutableTreeNode) v1;
+        if (nodo_seleccionado.getUserObject() instanceof Clase) {
+            clase = (Clase) nodo_seleccionado.getUserObject();
+        }
         if (evt.isMetaDown()) {
-            int row = uml.getClosestRowForLocation(evt.getX(), evt.getY());
-            uml.setSelectionRow(row);
-            Object v1 = uml.getSelectionPath().getLastPathComponent();
-            nodo_seleccionado = (DefaultMutableTreeNode) v1;
-            if (nodo_seleccionado.getUserObject() instanceof Clase) {
-                clase = (Clase) nodo_seleccionado.getUserObject();
-            }
             menuTodo(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_umlMouseClicked
 
     private void añadir_claseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_claseActionPerformed
-        Clase(null);
+        if (nodo_seleccionado.getUserObject().equals("Interfaces")) {
+            interf(this);
+        } else if (nodo_seleccionado.getUserObject().equals("Clases") || nodo_seleccionado.getUserObject() instanceof Clase) {
+            Clase(null);
+        } else {
+            JOptionPane.showMessageDialog(this, "¡Aquí no puede agregar nada!");
+        }
     }//GEN-LAST:event_añadir_claseActionPerformed
 
     private void modificar_claseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar_claseActionPerformed
-        Clase(nodo_seleccionado);
         if (nodo_seleccionado.getUserObject() instanceof Clase) {
-            clase = (Clase) nodo_seleccionado.getUserObject();
+            Clase(nodo_seleccionado);
+            if (nodo_seleccionado.getUserObject() instanceof Clase) {
+                clase = (Clase) nodo_seleccionado.getUserObject();
+            } else {
+                JOptionPane.showMessageDialog(this, "¡Debe seleccionar una clase!");
+            }
+        } else if (nodo_seleccionado.getUserObject() instanceof Interface) {
+            Interface = (Interface) nodo_seleccionado.getUserObject();
+            interf(this);
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una clase.");
+            JOptionPane.showMessageDialog(this, "¡Aquí no se puede modificar nada!");
         }
     }//GEN-LAST:event_modificar_claseActionPerformed
 
     private void eliminar_claseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_claseActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "Seguro de eliminar?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int response = JOptionPane.showConfirmDialog(this, "¿Seguro de eliminar?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         uml.removeSelectionPath(uml.getSelectionPath());
         if (response == JOptionPane.OK_OPTION) {
             DefaultTreeModel m = (DefaultTreeModel) uml.getModel();
             if (nodo_seleccionado.getUserObject() instanceof String) {
-                JOptionPane.showMessageDialog(this, "No puede eliminar el proyecto.");
-
+                JOptionPane.showMessageDialog(this, "¡No puede eliminar el proyecto!");
             } else {
                 m.removeNodeFromParent(nodo_seleccionado);
-
             }
-
             m.reload();
         }
     }//GEN-LAST:event_eliminar_claseActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (nodo_seleccionado.getUserObject() instanceof Clase) {
+            Object[] padres = nodo_seleccionado.getUserObjectPath();
+            for (Object padre : padres) {
+                if (padre instanceof Clase) {
+                    generarClases((Clase) padre);
+                }
+            }
+            generarSubClases(nodo_seleccionado);
+        } else {
+            JOptionPane.showMessageDialog(this, "¡No seleccionó ninguna clase");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void generarSubClases(DefaultMutableTreeNode clase) {
+        if (clase.getChildCount() > 0) {
+            for (int i = 0; i < clase.getChildCount(); i++) {
+                DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) clase.getChildAt(i);
+                generarSubClases(hijo);
+            }
+        } else {
+            generarClases((Clase) clase.getUserObject());
+        }
+    }
+
+    public void generarClases(Clase claseExp) {
+        claseExp.createConstructor();
+        claseExp.GetterAndSetters();
+        claseExp.setToString();
+        String codigo = "package Proyecto;\r\n";
+        codigo += claseExp.getVisibilidad();
+        if (claseExp.isAbtracto()) {
+            codigo += " abstract";
+        }
+        codigo += " class " + claseExp.getNombre() + "";
+        if (claseExp.getPadre() != null) {
+            codigo += " extends " + claseExp.getPadre().getNombre();
+        }
+        if (claseExp.getInterfaces().size() > 0) {
+            codigo += " implements";
+            int cont = 0;
+            for (Interface inte : claseExp.getInterfaces()) {
+                codigo += " " + inte.getNombre();
+                cont++;
+                if (cont > 0 && cont < claseExp.getInterfaces().size()) {
+                    codigo += ",";
+                }
+            }
+        }
+        codigo += " { \r\n";
+        for (Atributo temp : claseExp.getAtributos()) {
+            codigo += "   " + temp.getScope() + " " + temp.getTipo() + " " + temp.getNombre() + " = " + temp.getValor() + ";\r\n";
+        }
+        codigo += " \r\n   ";
+        for (Método mt : claseExp.getMétodos()) {
+            if (mt.isOverWrite()) {
+                codigo += "@Override" + "\r\n   ";
+            }
+            codigo += mt.getVisibilidad() + " " + mt.getRetorno() + " " + mt.getNombre() + "(";
+            for (Atributo pt : mt.getParametros()) {
+                if (mt.getParametros().indexOf(pt) != mt.getParametros().size() - 1) {
+                    codigo += pt.getTipo() + " " + pt.getNombre() + ", ";
+                } else {
+                    codigo += pt.getTipo() + " " + pt.getNombre();
+                }
+            }
+            codigo += ") { \r\n      ";
+            codigo += mt.getCuerpo();
+            codigo += "\r\n  }\r\n\r\n";
+            if (claseExp.getMétodos().indexOf(mt) != clase.getMétodos().size() - 1) {
+                codigo += "   ";
+            }
+        }
+        codigo += "}";
+        File ar = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            ar = new File("./" + claseExp.getNombre() + ".java");
+            fw = new FileWriter(ar, false);
+            bw = new BufferedWriter(fw);
+            bw.write(codigo);
+            bw.flush();
+        } catch (Exception e) {
+        }
+        try {
+            fw.close();
+            bw.close();
+        } catch (IOException ex) {
+        }
+    }
 
     public void agregarAtributo(Object objeto) {
         String nombre = atr_nombre.getText();
@@ -981,13 +1112,22 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void agregarInterface(Object objeto) {
-        Clase clase = ((Clase) objeto);
-        Interface.setNombre(intf_nombre.getText());
-        clase.getInterfaces().add(Interface);
-        clase_interfaces.setModel(new DefaultListModel());
-        DefaultListModel model = (DefaultListModel) clase_interfaces.getModel();
-        for (Interface intf : clase.getInterfaces()) {
-            model.addElement(intf);
+        if (!nodo_seleccionado.getUserObject().equals(Interface)) {
+            Interface.setNombre(intf_nombre.getText());
+            nodo_seleccionado.add(new DefaultMutableTreeNode(Interface));
+            interfaces.add(Interface);
+            DefaultTreeModel modelo = (DefaultTreeModel) uml.getModel();
+            modelo.reload();
+            clase_interfaces.setModel(new DefaultListModel());
+            DefaultListModel model = (DefaultListModel) clase_interfaces.getModel();
+            for (Interface intf : interfaces) {
+                model.addElement(intf);
+            }
+        } else {
+            Interface.setNombre(intf_nombre.getText());
+            intf_métodos.setModel(new DefaultListModel());
+            intf_atributos.setModel(new DefaultListModel());
+            intf_nombre.setText("");
         }
         crear_interface.setVisible(false);
         Interface = null;
@@ -998,7 +1138,6 @@ public class Main extends javax.swing.JFrame {
         atr_valor.setText("");
         crear_atributo.setModal(true);
         crear_atributo.setSize(513, 260);
-
         crear_atributo.setResizable(false);
         crear_atributo.setLocationRelativeTo(comp);
         if (comp.equals(crear_método)) {
@@ -1007,7 +1146,6 @@ public class Main extends javax.swing.JFrame {
             jLabel7.setVisible(false);
             atr_valor.setVisible(false);
             crear_atributo.setSize(513, 240);
-
         } else {
             jLabel11.setVisible(true);
             atr_scope.setVisible(true);
@@ -1021,14 +1159,13 @@ public class Main extends javax.swing.JFrame {
         crear_clase.setSize(866, 480);
         crear_clase.setResizable(false);
         crear_clase.setLocationRelativeTo(null);
-        if (object == null) {
+        if (object == null && !nodo_seleccionado.getUserObject().equals("Proyecto") && !nodo_seleccionado.getUserObject().equals("Interfaces")) {
             int abstr = JOptionPane.showConfirmDialog(crear_clase, "¿Su clase es abstracta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (abstr == 0) {
                 clase = new Clase(true);
             } else {
                 clase = new Clase();
             }
-
             if (!(nodo_seleccionado.getUserObject() instanceof String)) {
                 clase_herencia.setEnabled(false);
                 clase_herencia.setModel(new DefaultComboBoxModel());
@@ -1037,21 +1174,29 @@ public class Main extends javax.swing.JFrame {
             } else {
                 clase_herencia.setEnabled(false);
             }
-        } else {
+            clase_interfaces.setModel(new DefaultListModel());
+            DefaultListModel model = (DefaultListModel) clase_interfaces.getModel();
+            for (Interface met : interfaces) {
+                model.addElement(met);
+            }
+        } else if (!nodo_seleccionado.getUserObject().equals("Proyecto") && !nodo_seleccionado.getUserObject().equals("Interfaces")) {
             clase_nombre.setText(clase.getNombre());
             clase_metodos.setModel(new DefaultListModel());
             clase_atributos.setModel(new DefaultListModel());
             clase_interfaces.setModel(new DefaultListModel());
+            clase_metodos.setModel(new DefaultListModel());
             DefaultListModel model = (DefaultListModel) clase_metodos.getModel();
             for (Método met : clase.getMétodos()) {
                 model.addElement(met);
             }
+            clase_atributos.setModel(new DefaultListModel());
             model = (DefaultListModel) clase_atributos.getModel();
             for (Atributo met : clase.getAtributos()) {
                 model.addElement(met);
             }
+            clase_interfaces.setModel(new DefaultListModel());
             model = (DefaultListModel) clase_interfaces.getModel();
-            for (Interface met : clase.getInterfaces()) {
+            for (Interface met : interfaces) {
                 model.addElement(met);
             }
             if (clase.getPadre() != null) {
@@ -1061,16 +1206,26 @@ public class Main extends javax.swing.JFrame {
                 mod.addElement(clase.getPadre());
             } else {
                 clase_herencia.setEnabled(false);
+                clase_herencia.setModel(new DefaultComboBoxModel());
+                DefaultComboBoxModel mod = (DefaultComboBoxModel) clase_herencia.getModel();
             }
         }
-        crear_clase.setVisible(true);
-        this.setVisible(false);
+        if (nodo_seleccionado.getUserObject().equals("Proyecto") || nodo_seleccionado.getUserObject().equals("Interfaces")) {
+            JOptionPane.showMessageDialog(this, "¡Aquí no puede añadir Clases!");
+        } else {
+            crear_clase.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     public void metodo(Component comp) {
-        int abstr = 0;
-        if (comp.equals(crear_clase)) {
+        int abstr;
+        if (comp.equals(crear_clase) && clase.isAbtracto()) {
             abstr = JOptionPane.showConfirmDialog(crear_clase, "¿Su método es abstracto?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        } else if (comp.equals(this.crear_interface)) {
+            abstr = 0;
+        } else {
+            abstr = 1;
         }
         if (abstr == 0) {
             mtd_cuerpo.setEnabled(false);
@@ -1081,16 +1236,27 @@ public class Main extends javax.swing.JFrame {
         }
         crear_método.setSize(605, 406);
         crear_método.setResizable(false);
-        crear_método.setModal(false);
         crear_método.setLocationRelativeTo(comp);
         crear_método.setVisible(true);
     }
 
     public void interf(Component comp) {
-        Interface = new Interface();
-        intf_métodos.setModel(new DefaultListModel());
-        intf_atributos.setModel(new DefaultListModel());
-        intf_nombre.setText("");
+        if (Interface == null) {
+            Interface = new Interface();
+            intf_métodos.setModel(new DefaultListModel());
+            intf_atributos.setModel(new DefaultListModel());
+            intf_nombre.setText("");
+        } else {
+            intf_nombre.setText(Interface.getNombre());
+            DefaultListModel model = (DefaultListModel) intf_métodos.getModel();
+            for (Método met : Interface.getMetodos()) {
+                model.addElement(met);
+            }
+            model = (DefaultListModel) intf_atributos.getModel();
+            for (Atributo atb : Interface.getAtributos()) {
+                model.addElement(atb);
+            }
+        }
         crear_interface.setSize(568, 360);
         crear_interface.setLocationRelativeTo(null);
         crear_interface.setVisible(true);
@@ -1152,7 +1318,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem añadir_atributo1;
     private javax.swing.JMenuItem añadir_atributo2;
     private javax.swing.JMenuItem añadir_clase;
-    private javax.swing.JMenuItem añadir_interface;
     private javax.swing.JMenuItem añadir_método;
     private javax.swing.JMenuItem añadir_método1;
     private javax.swing.JList<String> clase_atributos;

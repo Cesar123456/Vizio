@@ -10,16 +10,35 @@ public class Método {
     private String visibilidad;
     private ArrayList<Atributo> parametros = new ArrayList();
     private boolean abstracto;
+    private boolean overWrite = false;
 
     public Método() {
     }
 
     public Método(String nombre, String retorno, String cuerpo, String visibilidad, boolean abstracto) {
+        this.overWrite = false;
         this.nombre = nombre;
         this.retorno = retorno;
         this.cuerpo = cuerpo;
         this.visibilidad = visibilidad;
         this.abstracto = abstracto;
+    }
+
+    public Método(String nombre, String retorno, String cuerpo, String visibilidad, boolean abstracto, boolean overWrite) {
+        this.nombre = nombre;
+        this.retorno = retorno;
+        this.cuerpo = cuerpo;
+        this.visibilidad = visibilidad;
+        this.abstracto = abstracto;
+        this.overWrite = overWrite;
+    }
+
+    public boolean isOverWrite() {
+        return overWrite;
+    }
+
+    public void setOverWrite(boolean overWrite) {
+        this.overWrite = overWrite;
     }
 
     public Método(boolean abstracto) {
@@ -80,15 +99,14 @@ public class Método {
         string = nombre + " (";
         for (int i = 0; i < this.parametros.size(); i++) {
             if (i != parametros.size() - 1) {
-                string += " " + parametros.get(i).getTipo() + " " + parametros.get(i).getNombre() + ",";
+                string += parametros.get(i).getTipo() + " " + parametros.get(i).getNombre() + ", ";
             } else {
-                string += " " + parametros.get(i).getTipo() + " " + parametros.get(i).getNombre() + " )";
+                string += parametros.get(i).getTipo() + " " + parametros.get(i).getNombre() + ")";
             }
         }
-        if(parametros.size()==0){
-            string+=")";
+        if (parametros.isEmpty()) {
+            string += ")";
         }
-
         return string;
     }
 }
