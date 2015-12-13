@@ -1,8 +1,9 @@
 package Main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Clase {
+public class Clase implements Serializable {
 
     private String nombre;
     private ArrayList<Atributo> atributos = new ArrayList();
@@ -33,15 +34,15 @@ public class Clase {
         cuerpo += "\r\n";
         if (padre != null) {
             for (Atributo atributo : padre.getAtributos()) {
-                cuerpo += "      super." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
+                cuerpo += "\t\tsuper." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
                 cuerpo += "\r\n";
                 constructorS.getParametros().add(atributo);
             }
 
         }
         constructorS.setCuerpo(cuerpo);
-        if (métodos.indexOf(constructor) == -1 && métodos.indexOf(constructorS) == -1) {
-            métodos.add(0, constructor);
+        métodos.add(0, constructor);
+        if (!atributos.isEmpty()) {
             métodos.add(1, constructorS);
         }
     }
@@ -71,15 +72,13 @@ public class Clase {
             cuerpo = "this." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
             Método set = new Método(nombre, retorno, cuerpo, "public", false);
             set.getParametros().add(atributo);
-            if (métodos.indexOf(set) == -1 && métodos.indexOf(get) == -1) {
-                métodos.add(get);
-                métodos.add(set);
-            }
+            métodos.add(get);
+            métodos.add(set);
         }
     }
 
     public void setToString() {
-        Método toString = new Método("toString", "String", "return \"nombre\";", "public", false, true);
+        Método toString = new Método("toString", "String", "return  \"" + nombre + "\";", "public", false, true);
         if (métodos.indexOf(toString) == -1) {
             métodos.add(toString);
         }

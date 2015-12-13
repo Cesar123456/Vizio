@@ -1,8 +1,9 @@
 package Main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Método {
+public class Método implements Serializable{
 
     private String nombre;
     private String retorno;

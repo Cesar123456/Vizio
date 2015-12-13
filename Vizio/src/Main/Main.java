@@ -5,15 +5,19 @@
  */
 package Main;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.*;
-
-import org.jvnet.substance.SubstanceLookAndFeel;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -38,7 +42,7 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     public Main() {
-        this.setDefaultLookAndFeelDecorated(false);
+        Main.setDefaultLookAndFeelDecorated(false);
         SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.RavenGraphiteGlassSkin");
         SubstanceLookAndFeel.setCurrentWatermark("org.jvnet.substance.watermark.SubstanceMetalWallWatermark");
         initComponents();
@@ -120,16 +124,24 @@ public class Main extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTree2 = new javax.swing.JTree();
+        er = new javax.swing.JTree();
         jScrollPane3 = new javax.swing.JScrollPane();
         uml = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        exportar = new javax.swing.JMenuItem();
+        importar = new javax.swing.JMenuItem();
+        informacion = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        salir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        reiniciar = new javax.swing.JMenuItem();
 
         crear_clase.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        crear_clase.setTitle("Clases");
         crear_clase.setBackground(new java.awt.Color(102, 102, 102));
         crear_clase.setName("Panel de Clase"); // NOI18N
         crear_clase.setType(java.awt.Window.Type.UTILITY);
@@ -270,6 +282,8 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        crear_atributo.setTitle("Atributos");
+
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Valor");
 
@@ -355,6 +369,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
+        crear_método.setTitle("Métodos");
         crear_método.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 crear_métodoMouseClicked(evt);
@@ -466,6 +481,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        crear_interface.setTitle("Interfaces");
         crear_interface.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 crear_interfaceMouseClicked(evt);
@@ -645,16 +661,25 @@ public class Main extends javax.swing.JFrame {
         main_Clase.add(eliminar_clase);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Principal");
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Acciones");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setText("Generar Códigos");
+        jButton1.setText("Generar Clases");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setText("Generar SQL");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -668,7 +693,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(39, 39, 39))
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -676,8 +703,10 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addGap(131, 131, 131)
+                .addGap(90, 90, 90)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -700,13 +729,15 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Vacío");
-        jTree2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree2.setToolTipText("Diagrama UML");
-        jScrollPane2.setViewportView(jTree2);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Base de Datos");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Tablas");
+        treeNode1.add(treeNode2);
+        er.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        er.setToolTipText("Diagrama UML");
+        jScrollPane2.setViewportView(er);
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Proyecto");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Clases");
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Clases");
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Interfaces");
         treeNode1.add(treeNode2);
@@ -743,10 +774,57 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Archivo");
+
+        exportar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
+        exportar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        exportar.setText("Exportar");
+        exportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exportar);
+
+        importar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
+        importar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        importar.setText("Importar");
+        importar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importarActionPerformed(evt);
+            }
+        });
+        importar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                importarKeyPressed(evt);
+            }
+        });
+        jMenu1.add(importar);
+
+        informacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
+        informacion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        informacion.setText("Información");
+        jMenu1.add(informacion);
+        jMenu1.add(jSeparator1);
+
+        salir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+        salir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        salir.setText("Salir");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(salir);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Edición");
+
+        reiniciar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        reiniciar.setText("Reiniciar");
+        jMenu2.add(reiniciar);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -819,7 +897,6 @@ public class Main extends javax.swing.JFrame {
                 clase.setAbstracto(true);
             }
         }
-
         DefaultTreeModel modeloArbol = (DefaultTreeModel) uml.getModel();
         modeloArbol.reload();
         crear_clase.setVisible(false);
@@ -838,7 +915,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_crear_claseMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (clase != null && método == null) {
+        if (clase != null && método == null) {;
             agregarAtributo(clase);
         } else if (clase != null & método != null) {
             agregarAtributo(método);
@@ -879,23 +956,28 @@ public class Main extends javax.swing.JFrame {
 
     private void añadir_atributo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_atributo1ActionPerformed
         if (método != null) {
+            crear_método.setVisible(false);
             atributo(crear_método);
         }
     }//GEN-LAST:event_añadir_atributo1ActionPerformed
 
     private void añadir_atributo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_atributo2ActionPerformed
+        crear_interface.setVisible(false);
         atributo(crear_interface);
     }//GEN-LAST:event_añadir_atributo2ActionPerformed
 
     private void añadir_método1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_método1ActionPerformed
+        crear_interface.setVisible(false);
         metodo(crear_interface);
     }//GEN-LAST:event_añadir_método1ActionPerformed
 
     private void añadir_métodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_métodoActionPerformed
+        crear_clase.setVisible(false);
         metodo(crear_clase);
     }//GEN-LAST:event_añadir_métodoActionPerformed
 
     private void añadir_atributoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadir_atributoActionPerformed
+        crear_clase.setVisible(false);
         atributo(crear_clase);
     }//GEN-LAST:event_añadir_atributoActionPerformed
 
@@ -907,6 +989,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         agregarInterface(nodo_seleccionado);
+        this.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void intf_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intf_nombreActionPerformed
@@ -967,34 +1050,146 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminar_claseActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         if (nodo_seleccionado.getUserObject() instanceof Clase) {
             Object[] padres = nodo_seleccionado.getUserObjectPath();
             for (Object padre : padres) {
-                if (padre instanceof Clase) {
-                    generarClases((Clase) padre);
+
+                if (padre instanceof Clase && !padre.equals(nodo_seleccionado.getUserObject())) {
+                    Clase claseExp = new Clase();
+                    Clase ref = (Clase) padre;
+                    claseExp.setAbstracto(ref.isAbtracto());
+                    claseExp.setNombre(ref.getNombre());
+                    claseExp.setAtributos(ref.getAtributos());
+                    claseExp.setInterfaces(ref.getInterfaces());
+                    claseExp.setMétodos(new ArrayList<Método>());
+                    for (Método mt : ref.getMétodos()) {
+                        claseExp.getMétodos().add(mt);
+                    }
+                    claseExp.setPadre(ref.getPadre());
+                    claseExp.setVisibilidad(ref.getVisibilidad());
+                    claseExp.createConstructor();
+                    claseExp.GetterAndSetters();
+                    claseExp.setToString();
+                    generarClases(claseExp);
                 }
             }
             generarSubClases(nodo_seleccionado);
+            JOptionPane.showMessageDialog(this, "Sus Clases fueron creadas con éxito.");
         } else {
-            JOptionPane.showMessageDialog(this, "¡No seleccionó ninguna clase");
+            JOptionPane.showMessageDialog(this, "¡No seleccionó ninguna clase!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarActionPerformed
+        File f = null;
+        FileInputStream fos = null;
+        ObjectInputStream oos = null;
+        try {
+            JFileChooser fc = new JFileChooser();
+            int accion = fc.showOpenDialog(this);
+            if (accion == JFileChooser.APPROVE_OPTION) {
+                String ruta = fc.getSelectedFile().getAbsolutePath();
+                try {
+                    f = new File(ruta);
+                    fos = new FileInputStream(f);
+                    oos = new ObjectInputStream(fos);
+                    Binario bnt = (Binario) oos.readObject();
+                    er.setModel(new DefaultTreeModel(bnt.getSql()));
+                    uml.setModel(new DefaultTreeModel(bnt.getUml()));
+                } catch (IOException | ClassNotFoundException e) {
+                    System.out.println(e);
+                }
+                try {
+                    oos.close();
+                    fos.close();
+                } catch (Exception ex) {
+
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+        DefaultTreeModel model2 = (DefaultTreeModel) uml.getModel();
+        model2.reload();
+        model.reload();
+    }//GEN-LAST:event_importarActionPerformed
+
+    private void importarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_importarKeyPressed
+
+    }//GEN-LAST:event_importarKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
+        File f = null;
+        try {
+            JFileChooser fc = new JFileChooser();
+            int accion = fc.showSaveDialog(this);
+            Binario bn = new Binario((DefaultMutableTreeNode) ((DefaultTreeModel) uml.getModel()).getRoot(), (DefaultMutableTreeNode) ((DefaultTreeModel) this.er.getModel()).getRoot());
+            if (accion == JFileChooser.APPROVE_OPTION) {
+                String ruta = fc.getSelectedFile().getAbsolutePath();
+                f = new File(ruta);
+                FileOutputStream fos = new FileOutputStream(f);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(bn);
+                try {
+                    oos.flush();
+                    oos.close();
+                    fos.close();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_exportarActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        System.exit(0);
+
+    }//GEN-LAST:event_salirActionPerformed
+
     public void generarSubClases(DefaultMutableTreeNode clase) {
-        if (clase.getChildCount() > 0) {
+        Clase claseExp = new Clase();
+        if (clase.getUserObject() instanceof Clase) {
+            Clase ref = (Clase) clase.getUserObject();
+            claseExp.setAbstracto(ref.isAbtracto());
+            claseExp.setNombre(ref.getNombre());
+            claseExp.setAtributos(ref.getAtributos());
+            claseExp.setInterfaces(ref.getInterfaces());
+            claseExp.setMétodos(new ArrayList<Método>());
+            for (Método mt : ref.getMétodos()) {
+                claseExp.getMétodos().add(mt);
+            }
+            claseExp.setPadre(ref.getPadre());
+            claseExp.setVisibilidad(ref.getVisibilidad());
+            claseExp.createConstructor();
+            claseExp.GetterAndSetters();
+            claseExp.setToString();
+            generarClases(claseExp);
             for (int i = 0; i < clase.getChildCount(); i++) {
                 DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) clase.getChildAt(i);
+                claseExp = new Clase();
+                generarSubClases(hijo);
+            }
+        } else if (clase.getUserObject().equals("Clases")) {
+            for (int i = 0; i < clase.getChildCount(); i++) {
+                DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) clase.getChildAt(i);
+                claseExp = new Clase();
                 generarSubClases(hijo);
             }
         } else {
-            generarClases((Clase) clase.getUserObject());
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una clase.");
         }
     }
 
     public void generarClases(Clase claseExp) {
-        claseExp.createConstructor();
-        claseExp.GetterAndSetters();
-        claseExp.setToString();
         String codigo = "package Proyecto;\r\n";
         codigo += claseExp.getVisibilidad();
         if (claseExp.isAbtracto()) {
@@ -1019,10 +1214,10 @@ public class Main extends javax.swing.JFrame {
         for (Atributo temp : claseExp.getAtributos()) {
             codigo += "   " + temp.getScope() + " " + temp.getTipo() + " " + temp.getNombre() + " = " + temp.getValor() + ";\r\n";
         }
-        codigo += " \r\n   ";
+        codigo += " \r\n\t";
         for (Método mt : claseExp.getMétodos()) {
             if (mt.isOverWrite()) {
-                codigo += "@Override" + "\r\n   ";
+                codigo += "@Override" + "\r\n\t";
             }
             codigo += mt.getVisibilidad() + " " + mt.getRetorno() + " " + mt.getNombre() + "(";
             for (Atributo pt : mt.getParametros()) {
@@ -1032,13 +1227,16 @@ public class Main extends javax.swing.JFrame {
                     codigo += pt.getTipo() + " " + pt.getNombre();
                 }
             }
-            codigo += ") { \r\n      ";
+            codigo += ") { \r\n\t\t";
             codigo += mt.getCuerpo();
-            codigo += "\r\n  }\r\n\r\n";
+            codigo += "\r\n\t}\r\n\r\n";
             if (claseExp.getMétodos().indexOf(mt) != clase.getMétodos().size() - 1) {
-                codigo += "   ";
+                codigo += "\t";
+            } else {
+                codigo += "\r\n";
             }
         }
+        codigo = codigo.replaceAll("\\t*$", "");
         codigo += "}";
         File ar = null;
         FileWriter fw = null;
@@ -1063,51 +1261,70 @@ public class Main extends javax.swing.JFrame {
         String tipo = atr_tipo.getSelectedItem().toString();
         String encap = atr_scope.getSelectedItem().toString();
         String valor = atr_valor.getText();
-        Atributo atributo = new Atributo(nombre, tipo, encap, valor);
         if (objeto instanceof Clase) {
+            Atributo atributo = new Atributo(nombre, tipo, encap, valor);
+            crear_atributo.setVisible(false);
             Clase clase = ((Clase) objeto);
+            if (atributo.getValor().equals("")) {
+                atributo.setValor("null");
+            }
             clase.getAtributos().add(atributo);
             clase_atributos.setModel(new DefaultListModel());
             DefaultListModel model = (DefaultListModel) clase_atributos.getModel();
-            for (Atributo attr : clase.getAtributos()) {
+            clase.getAtributos().stream().forEach((attr) -> {
                 model.addElement(attr);
-            }
+            });
+            crear_clase.setVisible(true);
         } else if (objeto instanceof Interface) {
+            Atributo atributo = new Atributo(nombre, tipo, encap, valor);
+            if (atributo.getValor().equals("")) {
+                atributo.setValor("null");
+            }
+            crear_atributo.setVisible(false);
             Interface obj = ((Interface) objeto);
             obj.getAtributos().add(atributo);
             intf_atributos.setModel(new DefaultListModel());
             DefaultListModel model = (DefaultListModel) intf_atributos.getModel();
-            for (Atributo attr : obj.getAtributos()) {
+            obj.getAtributos().stream().forEach((attr) -> {
                 model.addElement(attr);
-            }
+            });
+            crear_interface.setVisible(true);
         } else if (objeto instanceof Método) {
+            Atributo atributo = new Atributo(nombre, tipo, encap, valor);
+            crear_atributo.setVisible(false);
             Método mt = ((Método) objeto);
             mt.getParametros().add(atributo);
             mtd_parametros.setModel(new DefaultListModel());
             DefaultListModel model = (DefaultListModel) mtd_parametros.getModel();
-            for (Atributo attr : método.getParametros()) {
+            método.getParametros().stream().forEach((attr) -> {
                 model.addElement(attr);
-            }
+            });
+            crear_método.setVisible(true);
         }
     }
 
     public void agregarMétodo(Object objeto) {
         if (objeto instanceof Clase) {
+            crear_método.setVisible(false);
             Clase clase = ((Clase) objeto);
             clase.getMétodos().add(método);
             clase_metodos.setModel(new DefaultListModel());
             DefaultListModel model = (DefaultListModel) clase_metodos.getModel();
-            for (Método mtd : clase.getMétodos()) {
+            clase.getMétodos().stream().forEach((mtd) -> {
                 model.addElement(mtd);
-            }
+            });
+            crear_clase.setVisible(true);
         } else if (objeto instanceof Interface) {
+            crear_método.setVisible(false);
             Interface intf = ((Interface) objeto);
             intf.getMetodos().add(método);
             intf_métodos.setModel(new DefaultListModel());
             DefaultListModel model = (DefaultListModel) intf_métodos.getModel();
-            for (Método mtd : intf.getMetodos()) {
+            for (Iterator<Método> it = intf.getMetodos().iterator(); it.hasNext();) {
+                Método mtd = it.next();
                 model.addElement(mtd);
             }
+            crear_interface.setVisible(true);
         }
     }
 
@@ -1120,9 +1337,9 @@ public class Main extends javax.swing.JFrame {
             modelo.reload();
             clase_interfaces.setModel(new DefaultListModel());
             DefaultListModel model = (DefaultListModel) clase_interfaces.getModel();
-            for (Interface intf : interfaces) {
+            interfaces.stream().forEach((intf) -> {
                 model.addElement(intf);
-            }
+            });
         } else {
             Interface.setNombre(intf_nombre.getText());
             intf_métodos.setModel(new DefaultListModel());
@@ -1130,13 +1347,14 @@ public class Main extends javax.swing.JFrame {
             intf_nombre.setText("");
         }
         crear_interface.setVisible(false);
+        this.setVisible(true);
         Interface = null;
+
     }
 
     public void atributo(Component comp) {
         atr_nombre.setText("");
         atr_valor.setText("");
-        crear_atributo.setModal(true);
         crear_atributo.setSize(513, 260);
         crear_atributo.setResizable(false);
         crear_atributo.setLocationRelativeTo(comp);
@@ -1259,6 +1477,7 @@ public class Main extends javax.swing.JFrame {
         }
         crear_interface.setSize(568, 360);
         crear_interface.setLocationRelativeTo(null);
+        this.setVisible(false);
         crear_interface.setVisible(true);
     }
 
@@ -1272,6 +1491,7 @@ public class Main extends javax.swing.JFrame {
         } else if (comp.equals(uml)) {
             main_Clase.show(comp, x, y);
         }
+
     }
 
     /**
@@ -1331,10 +1551,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog crear_interface;
     private javax.swing.JDialog crear_método;
     private javax.swing.JMenuItem eliminar_clase;
+    private javax.swing.JTree er;
+    private javax.swing.JMenuItem exportar;
+    private javax.swing.JMenuItem importar;
+    private javax.swing.JMenuItem informacion;
     private javax.swing.JList<String> intf_atributos;
     private javax.swing.JList<String> intf_métodos;
     private javax.swing.JTextField intf_nombre;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -1373,7 +1598,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTree jTree2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu main_Clase;
     private javax.swing.JPopupMenu menuClass_Kit;
     private javax.swing.JPopupMenu menuIntf;
@@ -1386,6 +1611,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JList<String> mtd_parametros;
     private javax.swing.JComboBox<String> mtd_scope;
     private javax.swing.JComboBox<String> mtd_tipo;
+    private javax.swing.JMenuItem reiniciar;
+    private javax.swing.JMenuItem salir;
     private javax.swing.JTree uml;
     // End of variables declaration//GEN-END:variables
 }
