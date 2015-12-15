@@ -3,7 +3,7 @@ package Main;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Método implements Serializable{
+public class Método implements Serializable {
 
     private String nombre;
     private String retorno;
@@ -58,7 +58,10 @@ public class Método implements Serializable{
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws Exc{
+        if (nombre.equals("")) {
+            throw new Exc("Nombre inválido.");
+        }
         this.nombre = nombre;
     }
 

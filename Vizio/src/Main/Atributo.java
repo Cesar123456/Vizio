@@ -2,8 +2,8 @@ package Main;
 
 import java.io.Serializable;
 
+public class Atributo implements Serializable {
 
-public class Atributo implements Serializable{
     private String nombre;
     private String tipo;
     private String scope;
@@ -12,7 +12,10 @@ public class Atributo implements Serializable{
     public Atributo() {
     }
 
-    public Atributo(String nombre, String tipo, String scope, String valor) {
+    public Atributo(String nombre, String tipo, String scope, String valor) throws Exc{
+        if (nombre.equals("")) {
+            throw new Exc("Nombre inválido.");
+        }
         this.nombre = nombre;
         this.tipo = tipo;
         this.scope = scope;
@@ -31,7 +34,10 @@ public class Atributo implements Serializable{
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws Exc {
+        if (nombre.equals("")) {
+            throw new Exc("Nombre inválido.");
+        }
         this.nombre = nombre;
     }
 
@@ -55,5 +61,5 @@ public class Atributo implements Serializable{
     public String toString() {
         return tipo + " " + nombre;
     }
-    
+
 }

@@ -1,12 +1,13 @@
 package Main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+public class Interface implements Serializable{
 
-public class Interface {
     private String nombre;
-    private ArrayList <Método> metodos = new ArrayList();
-    private ArrayList <Atributo> atributos = new ArrayList();
+    private ArrayList<Método> metodos = new ArrayList();
+    private ArrayList<Atributo> atributos = new ArrayList();
 
     public Interface() {
     }
@@ -19,23 +20,26 @@ public class Interface {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws Exc {
+        if (nombre.equals("")) {
+            throw new Exc("Nombre inválido.");
+        }
         this.nombre = nombre;
     }
 
-    public ArrayList <Método> getMetodos() {
+    public ArrayList<Método> getMetodos() {
         return metodos;
     }
 
-    public void setMetodos(ArrayList <Método> metodos) {
+    public void setMetodos(ArrayList<Método> metodos) {
         this.metodos = metodos;
     }
 
-    public ArrayList <Atributo> getAtributos() {
+    public ArrayList<Atributo> getAtributos() {
         return atributos;
     }
 
-    public void setAtributos(ArrayList <Atributo> atributos) {
+    public void setAtributos(ArrayList<Atributo> atributos) {
         this.atributos = atributos;
     }
 

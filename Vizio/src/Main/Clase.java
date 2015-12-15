@@ -25,13 +25,12 @@ public class Clase implements Serializable {
     public void createConstructor() {
         Método constructor = new Método(nombre, "", "", "public", false);
         String cuerpo = "";
-        Método constructorS = new Método(nombre, "", "", "public", false);
+        Método constructorS = new Método(nombre, "", "", "\tpublic", false);
         for (Atributo atributo : atributos) {
             cuerpo += "this." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
             cuerpo += "\r\n";
             constructorS.getParametros().add(atributo);
         }
-        cuerpo += "\r\n";
         if (padre != null) {
             for (Atributo atributo : padre.getAtributos()) {
                 cuerpo += "\t\tsuper." + atributo.getNombre() + " = " + atributo.getNombre() + ";";
@@ -52,18 +51,19 @@ public class Clase implements Serializable {
             String nombre = "get";
             for (int i = 0; i < atributo.getNombre().length(); i++) {
                 if (i == 0) {
-                    nombre += atributo.getNombre().charAt(i) + "".toUpperCase();
+                    nombre += (atributo.getNombre().charAt(0) + "").toUpperCase();
                 } else {
                     nombre += atributo.getNombre().charAt(i);
                 }
             }
+            System.out.println(nombre);
             String retorno = atributo.getTipo();
             String cuerpo = "return " + atributo.getNombre() + ";";
             Método get = new Método(nombre, retorno, cuerpo, "public", false);
             nombre = "set";
             for (int i = 0; i < atributo.getNombre().length(); i++) {
                 if (i == 0) {
-                    nombre += atributo.getNombre().charAt(i) + "".toUpperCase();
+                    nombre += (atributo.getNombre().charAt(i) + "").toUpperCase();
                 } else {
                     nombre += atributo.getNombre().charAt(i);
                 }
@@ -100,7 +100,10 @@ public class Clase implements Serializable {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) throws Exc {
+        if (nombre.equals("")) {
+            throw new Exc("Nombre inválido.");
+        }
         this.nombre = nombre;
     }
 

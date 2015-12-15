@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -32,6 +33,7 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 public class Main extends javax.swing.JFrame {
 
     ArrayList<Clase> clases = new ArrayList();
+    ArrayList<Tabla> tablas = new ArrayList();
     ArrayList<Interface> interfaces = new ArrayList();
     Clase clase = null;
     Método método = null;
@@ -109,17 +111,63 @@ public class Main extends javax.swing.JFrame {
         menuClass_Kit = new javax.swing.JPopupMenu();
         menu_añadirTodo = new javax.swing.JMenu();
         añadir_atributo = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
         añadir_método = new javax.swing.JMenuItem();
+        eliminar_todo = new javax.swing.JMenuItem();
         menuMtd = new javax.swing.JPopupMenu();
         añadir_atributo1 = new javax.swing.JMenuItem();
+        eliminar_todo2 = new javax.swing.JMenuItem();
         menuIntf = new javax.swing.JPopupMenu();
         menu_añadirTodo1 = new javax.swing.JMenu();
         añadir_atributo2 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         añadir_método1 = new javax.swing.JMenuItem();
+        eliminar_todo1 = new javax.swing.JMenuItem();
         main_Clase = new javax.swing.JPopupMenu();
         añadir_clase = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         modificar_clase = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         eliminar_clase = new javax.swing.JMenuItem();
+        sql_actions = new javax.swing.JPopupMenu();
+        create = new javax.swing.JMenuItem();
+        drop = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        add_column = new javax.swing.JMenuItem();
+        drop_column = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        add_pk = new javax.swing.JMenuItem();
+        add_foreg = new javax.swing.JMenuItem();
+        sql_console_create = new javax.swing.JDialog();
+        jLabel20 = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        create_editor = new javax.swing.JTextArea();
+        jButton3 = new javax.swing.JButton();
+        sql_console_addcolumn = new javax.swing.JDialog();
+        jLabel21 = new javax.swing.JLabel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        editor_addcolumn = new javax.swing.JTextArea();
+        jButton8 = new javax.swing.JButton();
+        sql_console_dropcolumn = new javax.swing.JDialog();
+        jLabel22 = new javax.swing.JLabel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        editor_dropcolumn = new javax.swing.JTextArea();
+        jButton9 = new javax.swing.JButton();
+        sql_console_drop = new javax.swing.JDialog();
+        jLabel23 = new javax.swing.JLabel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        editor_drop = new javax.swing.JTextArea();
+        jButton10 = new javax.swing.JButton();
+        sql_console_pk = new javax.swing.JDialog();
+        jLabel24 = new javax.swing.JLabel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        editor_pk = new javax.swing.JTextArea();
+        jButton11 = new javax.swing.JButton();
+        sql_console_fk = new javax.swing.JDialog();
+        jLabel25 = new javax.swing.JLabel();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        editor_fk = new javax.swing.JTextArea();
+        jButton12 = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel11 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -282,6 +330,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        crear_atributo.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         crear_atributo.setTitle("Atributos");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -302,7 +351,7 @@ public class Main extends javax.swing.JFrame {
         jLabel11.setText("Encapsulamiento");
 
         atr_tipo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        atr_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "byte", "short", "int", "long", "float", "double", "char", "boolean", "String" }));
+        atr_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "byte", "short", "int", "long", "float", "double", "char", "boolean", "String", "ArrayList" }));
 
         atr_valor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
@@ -369,6 +418,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
+        crear_método.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         crear_método.setTitle("Métodos");
         crear_método.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -385,7 +435,7 @@ public class Main extends javax.swing.JFrame {
         jLabel13.setText("Tipo");
 
         mtd_tipo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        mtd_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "byte", "short", "int", "long", "float", "double", "char", "boolean", "String" }));
+        mtd_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "byte", "void", "short", "int", "long", "float", "double", "char", "boolean", "String", "ArrayList" }));
 
         mtd_scope.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         mtd_scope.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "public", "private", "package", "protected" }));
@@ -481,6 +531,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        crear_interface.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         crear_interface.setTitle("Interfaces");
         crear_interface.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -583,6 +634,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         menu_añadirTodo.add(añadir_atributo);
+        menu_añadirTodo.add(jSeparator5);
 
         añadir_método.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         añadir_método.setText("Método");
@@ -595,6 +647,15 @@ public class Main extends javax.swing.JFrame {
 
         menuClass_Kit.add(menu_añadirTodo);
 
+        eliminar_todo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminar_todo.setText("Eliminar");
+        eliminar_todo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminar_todoActionPerformed(evt);
+            }
+        });
+        menuClass_Kit.add(eliminar_todo);
+
         menuMtd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         añadir_atributo1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -605,6 +666,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
         menuMtd.add(añadir_atributo1);
+
+        eliminar_todo2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminar_todo2.setText("Eliminar");
+        eliminar_todo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminar_todo2ActionPerformed(evt);
+            }
+        });
+        menuMtd.add(eliminar_todo2);
 
         menuIntf.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
@@ -619,6 +689,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         menu_añadirTodo1.add(añadir_atributo2);
+        menu_añadirTodo1.add(jSeparator4);
 
         añadir_método1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         añadir_método1.setText("Método");
@@ -631,6 +702,15 @@ public class Main extends javax.swing.JFrame {
 
         menuIntf.add(menu_añadirTodo1);
 
+        eliminar_todo1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminar_todo1.setText("Eliminar");
+        eliminar_todo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminar_todo1ActionPerformed(evt);
+            }
+        });
+        menuIntf.add(eliminar_todo1);
+
         main_Clase.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         añadir_clase.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -641,6 +721,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         main_Clase.add(añadir_clase);
+        main_Clase.add(jSeparator2);
 
         modificar_clase.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         modificar_clase.setText("Modificar");
@@ -650,6 +731,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         main_Clase.add(modificar_clase);
+        main_Clase.add(jSeparator3);
 
         eliminar_clase.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         eliminar_clase.setText("Eliminar");
@@ -659,6 +741,345 @@ public class Main extends javax.swing.JFrame {
             }
         });
         main_Clase.add(eliminar_clase);
+
+        create.setText("CREATE TABLE");
+        create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createActionPerformed(evt);
+            }
+        });
+        sql_actions.add(create);
+
+        drop.setText("DROP TABLE");
+        drop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dropActionPerformed(evt);
+            }
+        });
+        sql_actions.add(drop);
+        sql_actions.add(jSeparator6);
+
+        add_column.setText("ADD COLUMN");
+        add_column.setToolTipText("");
+        add_column.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_columnActionPerformed(evt);
+            }
+        });
+        sql_actions.add(add_column);
+
+        drop_column.setText("DROP COLUMN");
+        drop_column.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drop_columnActionPerformed(evt);
+            }
+        });
+        sql_actions.add(drop_column);
+        sql_actions.add(jSeparator7);
+
+        add_pk.setText("ADD PRIMARY KEY");
+        add_pk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_pkActionPerformed(evt);
+            }
+        });
+        sql_actions.add(add_pk);
+
+        add_foreg.setText("ADD FOREIGN KEY");
+        add_foreg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_foregActionPerformed(evt);
+            }
+        });
+        sql_actions.add(add_foreg);
+
+        sql_console_create.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        sql_console_create.setTitle("Ejecutor SQL");
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel20.setText("Consola SQL");
+
+        create_editor.setColumns(20);
+        create_editor.setRows(5);
+        jScrollPane10.setViewportView(create_editor);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton3.setText("Ejecutar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sql_console_createLayout = new javax.swing.GroupLayout(sql_console_create.getContentPane());
+        sql_console_create.getContentPane().setLayout(sql_console_createLayout);
+        sql_console_createLayout.setHorizontalGroup(
+            sql_console_createLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_createLayout.createSequentialGroup()
+                .addGroup(sql_console_createLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sql_console_createLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(sql_console_createLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sql_console_createLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel20)))
+                    .addGroup(sql_console_createLayout.createSequentialGroup()
+                        .addGap(208, 208, 208)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        sql_console_createLayout.setVerticalGroup(
+            sql_console_createLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_createLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
+        sql_console_addcolumn.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        sql_console_addcolumn.setTitle("Ejecutor SQL");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel21.setText("Consola SQL");
+
+        editor_addcolumn.setColumns(20);
+        editor_addcolumn.setRows(5);
+        jScrollPane11.setViewportView(editor_addcolumn);
+
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton8.setText("Ejecutar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sql_console_addcolumnLayout = new javax.swing.GroupLayout(sql_console_addcolumn.getContentPane());
+        sql_console_addcolumn.getContentPane().setLayout(sql_console_addcolumnLayout);
+        sql_console_addcolumnLayout.setHorizontalGroup(
+            sql_console_addcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_addcolumnLayout.createSequentialGroup()
+                .addGroup(sql_console_addcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sql_console_addcolumnLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(sql_console_addcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sql_console_addcolumnLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel21)))
+                    .addGroup(sql_console_addcolumnLayout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        sql_console_addcolumnLayout.setVerticalGroup(
+            sql_console_addcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_addcolumnLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
+        sql_console_dropcolumn.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        sql_console_dropcolumn.setTitle("Ejecutor SQL");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel22.setText("Consola SQL");
+
+        editor_dropcolumn.setColumns(20);
+        editor_dropcolumn.setRows(5);
+        jScrollPane12.setViewportView(editor_dropcolumn);
+
+        jButton9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton9.setText("Ejecutar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sql_console_dropcolumnLayout = new javax.swing.GroupLayout(sql_console_dropcolumn.getContentPane());
+        sql_console_dropcolumn.getContentPane().setLayout(sql_console_dropcolumnLayout);
+        sql_console_dropcolumnLayout.setHorizontalGroup(
+            sql_console_dropcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_dropcolumnLayout.createSequentialGroup()
+                .addGroup(sql_console_dropcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sql_console_dropcolumnLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(sql_console_dropcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sql_console_dropcolumnLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel22)))
+                    .addGroup(sql_console_dropcolumnLayout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        sql_console_dropcolumnLayout.setVerticalGroup(
+            sql_console_dropcolumnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_dropcolumnLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+
+        sql_console_drop.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        sql_console_drop.setTitle("Ejecutor SQL");
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel23.setText("Consola SQL");
+
+        editor_drop.setColumns(20);
+        editor_drop.setRows(5);
+        jScrollPane13.setViewportView(editor_drop);
+
+        jButton10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton10.setText("Ejecutar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sql_console_dropLayout = new javax.swing.GroupLayout(sql_console_drop.getContentPane());
+        sql_console_drop.getContentPane().setLayout(sql_console_dropLayout);
+        sql_console_dropLayout.setHorizontalGroup(
+            sql_console_dropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_dropLayout.createSequentialGroup()
+                .addGroup(sql_console_dropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sql_console_dropLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(sql_console_dropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sql_console_dropLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel23)))
+                    .addGroup(sql_console_dropLayout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        sql_console_dropLayout.setVerticalGroup(
+            sql_console_dropLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_dropLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+
+        sql_console_pk.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        sql_console_pk.setTitle("Ejecutor SQL");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel24.setText("Consola SQL");
+
+        editor_pk.setColumns(20);
+        editor_pk.setRows(5);
+        jScrollPane14.setViewportView(editor_pk);
+
+        jButton11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton11.setText("Ejecutar");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sql_console_pkLayout = new javax.swing.GroupLayout(sql_console_pk.getContentPane());
+        sql_console_pk.getContentPane().setLayout(sql_console_pkLayout);
+        sql_console_pkLayout.setHorizontalGroup(
+            sql_console_pkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_pkLayout.createSequentialGroup()
+                .addGroup(sql_console_pkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sql_console_pkLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(sql_console_pkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sql_console_pkLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel24)))
+                    .addGroup(sql_console_pkLayout.createSequentialGroup()
+                        .addGap(203, 203, 203)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        sql_console_pkLayout.setVerticalGroup(
+            sql_console_pkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_pkLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+
+        sql_console_fk.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        sql_console_fk.setTitle("Ejecutor SQL");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel25.setText("Consola SQL");
+
+        editor_fk.setColumns(20);
+        editor_fk.setRows(5);
+        jScrollPane15.setViewportView(editor_fk);
+
+        jButton12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton12.setText("Ejecutar");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sql_console_fkLayout = new javax.swing.GroupLayout(sql_console_fk.getContentPane());
+        sql_console_fk.getContentPane().setLayout(sql_console_fkLayout);
+        sql_console_fkLayout.setHorizontalGroup(
+            sql_console_fkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_fkLayout.createSequentialGroup()
+                .addGroup(sql_console_fkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sql_console_fkLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(sql_console_fkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sql_console_fkLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel25)))
+                    .addGroup(sql_console_fkLayout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+        sql_console_fkLayout.setVerticalGroup(
+            sql_console_fkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sql_console_fkLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
@@ -729,15 +1150,18 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Base de Datos");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Tablas");
-        treeNode1.add(treeNode2);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Base de datos");
         er.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        er.setToolTipText("Diagrama UML");
+        er.setToolTipText("Diagrama ER");
+        er.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                erMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(er);
 
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Proyecto");
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Clases");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Clases");
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Interfaces");
         treeNode1.add(treeNode2);
@@ -804,6 +1228,11 @@ public class Main extends javax.swing.JFrame {
         informacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
         informacion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         informacion.setText("Información");
+        informacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                informacionActionPerformed(evt);
+            }
+        });
         jMenu1.add(informacion);
         jMenu1.add(jSeparator1);
 
@@ -820,9 +1249,20 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edición");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
+        reiniciar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         reiniciar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         reiniciar.setText("Reiniciar");
+        reiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reiniciarActionPerformed(evt);
+            }
+        });
         jMenu2.add(reiniciar);
 
         jMenuBar1.add(jMenu2);
@@ -852,29 +1292,31 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_clase_nombreActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        clase.setNombre(clase_nombre.getText());
-        clase.setVisibilidad(clase_scope.getSelectedItem().toString());
-        int[] index = clase_interfaces.getSelectedIndices();
-        clase.setInterfaces(new ArrayList<Interface>());
-        DefaultListModel modelo = (DefaultListModel) clase_interfaces.getModel();
-        for (int i : index) {
-            clase.getInterfaces().add((Interface) modelo.getElementAt(i));
-        }
-        if (!clase.equals(nodo_seleccionado.getUserObject())) {
-            if (nodo_seleccionado.getUserObject() instanceof String) {
-                clase.setPadre(null);
-            } else {
-                clase.setPadre((Clase) nodo_seleccionado.getUserObject());
+        try {
+            clase.setNombre(clase_nombre.getText());
+            clase.setVisibilidad(clase_scope.getSelectedItem().toString());
+            int[] index = clase_interfaces.getSelectedIndices();
+            clase.setInterfaces(new ArrayList<Interface>());
+            DefaultListModel modelo = (DefaultListModel) clase_interfaces.getModel();
+            for (int i : index) {
+                clase.getInterfaces().add((Interface) modelo.getElementAt(i));
             }
-            nodo_seleccionado.add(new DefaultMutableTreeNode(clase));
-            DefaultComboBoxModel model = (DefaultComboBoxModel) atr_tipo.getModel();
-            model.addElement(clase);
-            model = (DefaultComboBoxModel) mtd_tipo.getModel();
-            model.addElement(clase);
-            clases.add(clase);
-        }
-        if (clase.getInterfaces().size() > 0) {
-            int abstr = JOptionPane.showConfirmDialog(crear_clase, "¿Su clase es abstracta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (!clase.equals(nodo_seleccionado.getUserObject())) {
+                if (nodo_seleccionado.getUserObject() instanceof String) {
+                    clase.setPadre(null);
+                } else {
+                    clase.setPadre((Clase) nodo_seleccionado.getUserObject());
+                }
+                nodo_seleccionado.add(new DefaultMutableTreeNode(clase));
+                DefaultComboBoxModel model = (DefaultComboBoxModel) atr_tipo.getModel();
+                model.addElement(clase);
+                model.addElement("ArrayList <" + clase + ">");
+                model = (DefaultComboBoxModel) mtd_tipo.getModel();
+                model.addElement(clase);
+                model.addElement("ArrayList <" + clase + ">");
+                clases.add(clase);
+            }
+            int abstr = JOptionPane.showConfirmDialog(null, "¿Su clase es abstracta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (abstr == 1) {
                 for (Interface ifc : clase.getInterfaces()) {
                     for (Método mtdf : ifc.getMetodos()) {
@@ -896,16 +1338,29 @@ public class Main extends javax.swing.JFrame {
             } else {
                 clase.setAbstracto(true);
             }
+            if (clase.getPadre() != null) {
+                for (Método mtdf : clase.getPadre().getMétodos()) {
+                    for (Método met : clase.getMétodos()) {
+                        if (mtdf.getNombre().equals(met.getNombre())) {
+                            met.setOverWrite(true);
+                        }
+                    }
+                }
+            }
+            DefaultTreeModel modeloArbol = (DefaultTreeModel) uml.getModel();
+            modeloArbol.reload();
+            clase_nombre.setText("");
+            clase_metodos.setModel(new DefaultListModel());
+            clase_atributos.setModel(new DefaultListModel());
+            clase_interfaces.setModel(new DefaultListModel());
+            clase = null;
+            crear_clase.setVisible(false);
+            this.setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Un error ha ocurrido.");
+
         }
-        DefaultTreeModel modeloArbol = (DefaultTreeModel) uml.getModel();
-        modeloArbol.reload();
-        crear_clase.setVisible(false);
-        clase_nombre.setText("");
-        clase_metodos.setModel(new DefaultListModel());
-        clase_atributos.setModel(new DefaultListModel());
-        clase_interfaces.setModel(new DefaultListModel());
-        clase = null;
-        this.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void crear_claseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crear_claseMouseClicked
@@ -929,23 +1384,27 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        método.setNombre(mtd_nombre.getText());
-        método.setRetorno(mtd_tipo.getSelectedItem().toString());
-        método.setVisibilidad(this.mtd_scope.getSelectedItem().toString());
-        método.setCuerpo(mtd_cuerpo.getText());
-        if (clase != null && Interface == null) {
-            agregarMétodo(clase);
+        try {
+            método.setNombre(mtd_nombre.getText());
+            método.setRetorno(mtd_tipo.getSelectedItem().toString());
+            método.setVisibilidad(this.mtd_scope.getSelectedItem().toString());
+            método.setCuerpo(mtd_cuerpo.getText());
+            if (clase != null && Interface == null) {
+                agregarMétodo(clase);
+            }
+            if (Interface != null && clase == null) {
+                agregarMétodo(Interface);
+            }
+            crear_método.setVisible(false);
+            método = null;
+            mtd_nombre.setText("");
+            mtd_nombre.setText("");
+            mtd_cuerpo.setText("");
+            mtd_parametros.setModel(new DefaultListModel());
+            mtd_cuerpo.setEnabled(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Un error ha ocurrido.");
         }
-        if (Interface != null && clase == null) {
-            agregarMétodo(Interface);
-        }
-        crear_método.setVisible(false);
-        método = null;
-        mtd_nombre.setText("");
-        mtd_nombre.setText("");
-        mtd_cuerpo.setText("");
-        mtd_parametros.setModel(new DefaultListModel());
-        mtd_cuerpo.setEnabled(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void crear_métodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crear_métodoMouseClicked
@@ -989,7 +1448,6 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         agregarInterface(nodo_seleccionado);
-        this.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void intf_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intf_nombreActionPerformed
@@ -1015,7 +1473,7 @@ public class Main extends javax.swing.JFrame {
         } else if (nodo_seleccionado.getUserObject().equals("Clases") || nodo_seleccionado.getUserObject() instanceof Clase) {
             Clase(null);
         } else {
-            JOptionPane.showMessageDialog(this, "¡Aquí no puede agregar nada!");
+            JOptionPane.showMessageDialog(null, "¡Aquí no puede agregar nada!");
         }
     }//GEN-LAST:event_añadir_claseActionPerformed
 
@@ -1025,23 +1483,23 @@ public class Main extends javax.swing.JFrame {
             if (nodo_seleccionado.getUserObject() instanceof Clase) {
                 clase = (Clase) nodo_seleccionado.getUserObject();
             } else {
-                JOptionPane.showMessageDialog(this, "¡Debe seleccionar una clase!");
+                JOptionPane.showMessageDialog(null, "¡Debe seleccionar una clase!");
             }
         } else if (nodo_seleccionado.getUserObject() instanceof Interface) {
             Interface = (Interface) nodo_seleccionado.getUserObject();
             interf(this);
         } else {
-            JOptionPane.showMessageDialog(this, "¡Aquí no se puede modificar nada!");
+            JOptionPane.showMessageDialog(null, "¡Aquí no se puede modificar nada!");
         }
     }//GEN-LAST:event_modificar_claseActionPerformed
 
     private void eliminar_claseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_claseActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "¿Seguro de eliminar?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int response = JOptionPane.showConfirmDialog(null, "¿Seguro de eliminar?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         uml.removeSelectionPath(uml.getSelectionPath());
         if (response == JOptionPane.OK_OPTION) {
             DefaultTreeModel m = (DefaultTreeModel) uml.getModel();
             if (nodo_seleccionado.getUserObject() instanceof String) {
-                JOptionPane.showMessageDialog(this, "¡No puede eliminar el proyecto!");
+                JOptionPane.showMessageDialog(null, "¡No puede eliminar el proyecto!");
             } else {
                 m.removeNodeFromParent(nodo_seleccionado);
             }
@@ -1050,34 +1508,36 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminar_claseActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        if (nodo_seleccionado.getUserObject() instanceof Clase) {
-            Object[] padres = nodo_seleccionado.getUserObjectPath();
-            for (Object padre : padres) {
-
-                if (padre instanceof Clase && !padre.equals(nodo_seleccionado.getUserObject())) {
-                    Clase claseExp = new Clase();
-                    Clase ref = (Clase) padre;
-                    claseExp.setAbstracto(ref.isAbtracto());
-                    claseExp.setNombre(ref.getNombre());
-                    claseExp.setAtributos(ref.getAtributos());
-                    claseExp.setInterfaces(ref.getInterfaces());
-                    claseExp.setMétodos(new ArrayList<Método>());
-                    for (Método mt : ref.getMétodos()) {
-                        claseExp.getMétodos().add(mt);
+        try {
+            if (nodo_seleccionado != null && nodo_seleccionado.getUserObject() instanceof Clase) {
+                Object[] padres = nodo_seleccionado.getUserObjectPath();
+                for (Object padre : padres) {
+                    if (padre instanceof Clase && !padre.equals(nodo_seleccionado.getUserObject())) {
+                        Clase claseExp = new Clase();
+                        Clase ref = (Clase) padre;
+                        claseExp.setAbstracto(ref.isAbtracto());
+                        claseExp.setNombre(ref.getNombre());
+                        claseExp.setAtributos(ref.getAtributos());
+                        claseExp.setInterfaces(ref.getInterfaces());
+                        claseExp.setMétodos(new ArrayList<Método>());
+                        for (Método mt : ref.getMétodos()) {
+                            claseExp.getMétodos().add(mt);
+                        }
+                        claseExp.setPadre(ref.getPadre());
+                        claseExp.setVisibilidad(ref.getVisibilidad());
+                        claseExp.createConstructor();
+                        claseExp.GetterAndSetters();
+                        claseExp.setToString();
+                        generarClases(claseExp);
                     }
-                    claseExp.setPadre(ref.getPadre());
-                    claseExp.setVisibilidad(ref.getVisibilidad());
-                    claseExp.createConstructor();
-                    claseExp.GetterAndSetters();
-                    claseExp.setToString();
-                    generarClases(claseExp);
                 }
+                generarSubClases(nodo_seleccionado);
+                JOptionPane.showMessageDialog(null, "Sus Clases fueron creadas con éxito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "¡No seleccionó ninguna clase!");
             }
-            generarSubClases(nodo_seleccionado);
-            JOptionPane.showMessageDialog(this, "Sus Clases fueron creadas con éxito.");
-        } else {
-            JOptionPane.showMessageDialog(this, "¡No seleccionó ninguna clase!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Un error ha ocurrido.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1097,6 +1557,9 @@ public class Main extends javax.swing.JFrame {
                     Binario bnt = (Binario) oos.readObject();
                     er.setModel(new DefaultTreeModel(bnt.getSql()));
                     uml.setModel(new DefaultTreeModel(bnt.getUml()));
+                    clases = bnt.getClases();
+                    interfaces = bnt.getInterfaces();
+                    tablas = bnt.getTablas();
                 } catch (IOException | ClassNotFoundException e) {
                     System.out.println(e);
                 }
@@ -1121,7 +1584,45 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_importarKeyPressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if (tablas.size() > 0) {
+            String string = "";
+
+            for (Tabla tabla : tablas) {
+                string += "CREATE TABLE " + tabla.getNombre() + "(\r\n";
+                for (Campo camp : tabla.getCampos()) {
+                    string += camp.getNombre() + " " + camp.getTipo() + ",\r\n";
+                }
+                string += ");\r\n";
+                for (Campo camp : tabla.getCampos()) {
+                    if (camp.isPrimaria()) {
+                        string += "ALTER TABLE " + tabla.getNombre() + " ADD PRIMARY KEY (" + camp.getNombre() + ");\r\n";
+                    }
+                }
+                for (Campo camp : tabla.getCampos()) {
+                    if (camp.isSecundaria()) {
+                        string += "ALTER TABLE " + tabla.getNombre() + " ADD FOREIGN KEY FROM " + camp.getReferencia2() + " (" + camp.getNombre() + "," + camp.getReferencia1() + ");";
+                    }
+                }
+                string += "\r\n";
+            }
+            File ar = null;
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+            try {
+                ar = new File("./Tablas/ SQL.sql");
+                fw = new FileWriter(ar, false);
+                bw = new BufferedWriter(fw);
+                bw.write(string);
+                bw.flush();
+            } catch (Exception e) {
+            }
+            try {
+                fw.close();
+                bw.close();
+                JOptionPane.showMessageDialog(null, "Su código sql, fue generado correctamente.");
+            } catch (IOException ex) {
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
@@ -1129,7 +1630,7 @@ public class Main extends javax.swing.JFrame {
         try {
             JFileChooser fc = new JFileChooser();
             int accion = fc.showSaveDialog(this);
-            Binario bn = new Binario((DefaultMutableTreeNode) ((DefaultTreeModel) uml.getModel()).getRoot(), (DefaultMutableTreeNode) ((DefaultTreeModel) this.er.getModel()).getRoot());
+            Binario bn = new Binario((DefaultMutableTreeNode) ((DefaultTreeModel) uml.getModel()).getRoot(), (DefaultMutableTreeNode) ((DefaultTreeModel) this.er.getModel()).getRoot(), interfaces, tablas, clases);
             if (accion == JFileChooser.APPROVE_OPTION) {
                 String ruta = fc.getSelectedFile().getAbsolutePath();
                 f = new File(ruta);
@@ -1152,40 +1653,470 @@ public class Main extends javax.swing.JFrame {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         System.exit(0);
-
     }//GEN-LAST:event_salirActionPerformed
 
+    private void drop_columnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drop_columnActionPerformed
+        sql_console_dropcolumn.setSize(531, 460);
+        sql_console_dropcolumn.setResizable(false);
+        sql_console_dropcolumn.setLocationRelativeTo(this);
+        this.setVisible(false);
+        sql_console_dropcolumn.setVisible(true);
+    }//GEN-LAST:event_drop_columnActionPerformed
+
+    private void erMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_erMouseClicked
+        if (evt.isMetaDown()) {
+            sql_actions.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_erMouseClicked
+
+    private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
+        sql_console_create.setSize(531, 460);
+        sql_console_create.setResizable(false);
+        sql_console_create.setLocationRelativeTo(this);
+        this.setVisible(false);
+        sql_console_create.setVisible(true);
+    }//GEN-LAST:event_createActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            Tabla temp = new Tabla();
+            String[] tableAll = create_editor.getText().split(";\n");
+            for (String table : tableAll) {
+                String campos = table.substring(table.indexOf("(") + 1, table.length() - 1);
+                table = table.substring(0, table.indexOf("(") - 1);
+                String[] tables = table.split(" ");
+                String[] campoString = campos.split(",\n");
+                temp = new Tabla(tables[2]);
+                for (String string : campoString) {
+                    String[] paramCampo = string.split(" ");
+                    Campo camp = new Campo(paramCampo[0], false, false, paramCampo[1]);
+                    boolean control = true;
+                    for (Campo tempCamp : temp.getCampos()) {
+                        if (camp.getNombre().equals(tempCamp.getNombre())) {
+                            control = false;
+                        }
+                    }
+                    if (control) {
+                        temp.getCampos().add(camp);
+                    }
+                }
+                boolean control = true;
+                for (Tabla tabla : tablas) {
+                    if (tabla.getNombre().equals(temp.getNombre())) {
+                        control = false;
+                    }
+                }
+                if (control) {
+                    tablas.add(temp);
+                }
+            }
+            er.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Base de datos")));
+            DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) model.getRoot();
+            for (Tabla tabla : tablas) {
+                DefaultMutableTreeNode nodoTabla = new DefaultMutableTreeNode(tabla);
+                DefaultMutableTreeNode normalCamp = new DefaultMutableTreeNode("Campos");
+                DefaultMutableTreeNode nodoPrimarios = new DefaultMutableTreeNode("Llaves primarias");
+                DefaultMutableTreeNode nodoForaneo = new DefaultMutableTreeNode("Llaves foráneas");
+                for (Campo campito : tabla.getCampos()) {
+                    if (campito.isPrimaria()) {
+                        if (campito.isPrimaria()) {
+                            nodoPrimarios.add(new DefaultMutableTreeNode(campito));
+                        }
+                    } else if (campito.isSecundaria()) {
+                        nodoForaneo.add(new DefaultMutableTreeNode(campito));
+                    } else {
+                        normalCamp.add(new DefaultMutableTreeNode(campito));
+                    }
+                }
+                nodoTabla.add(nodoPrimarios);
+                nodoTabla.add(nodoForaneo);
+                nodoTabla.add(normalCamp);
+                nodo.add(nodoTabla);
+            }
+            model.reload();
+            create_editor.setText("");
+            sql_console_create.setVisible(false);
+            this.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error de Síntaxis.");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void add_columnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_columnActionPerformed
+        sql_console_addcolumn.setSize(531, 460);
+        sql_console_addcolumn.setResizable(false);
+        sql_console_addcolumn.setLocationRelativeTo(this);
+        this.setVisible(false);
+        sql_console_addcolumn.setVisible(true);
+    }//GEN-LAST:event_add_columnActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+            String[] tableAll = editor_addcolumn.getText().split(";\n");
+            for (String string : tableAll) {
+                String tableName = string.substring(0, string.indexOf('\n')).split(" ")[2];
+                String[] campo = string.substring(string.indexOf('\n'), string.length()).split(" ");
+                for (Tabla tabTemp : tablas) {
+                    if (tabTemp.getNombre().equals(tableName)) {
+                        tabTemp.getCampos().add(new Campo(campo[1], false, false, campo[2]));
+                    }
+                }
+            }
+            er.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Base de datos")));
+            DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) model.getRoot();
+            for (Tabla tabla : tablas) {
+                DefaultMutableTreeNode nodoTabla = new DefaultMutableTreeNode(tabla);
+                DefaultMutableTreeNode normalCamp = new DefaultMutableTreeNode("Campos");
+                DefaultMutableTreeNode nodoPrimarios = new DefaultMutableTreeNode("Llaves primarias");
+                DefaultMutableTreeNode nodoForaneo = new DefaultMutableTreeNode("Llaves foráneas");
+                for (Campo campito : tabla.getCampos()) {
+                    if (campito.isPrimaria()) {
+                        if (campito.isPrimaria()) {
+                            nodoPrimarios.add(new DefaultMutableTreeNode(campito));
+                        }
+                    } else if (campito.isSecundaria()) {
+                        nodoForaneo.add(new DefaultMutableTreeNode(campito));
+                    } else {
+                        normalCamp.add(new DefaultMutableTreeNode(campito));
+                    }
+                }
+                nodoTabla.add(nodoPrimarios);
+                nodoTabla.add(nodoForaneo);
+                nodoTabla.add(normalCamp);
+                nodo.add(nodoTabla);
+            }
+            model.reload();
+            editor_addcolumn.setText("");
+            sql_console_create.setVisible(false);
+            this.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error de síntaxis.");
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        try {
+            String[] tableAll = editor_dropcolumn.getText().split(";\n");
+            for (String string : tableAll) {
+                String tableName = string.substring(0, string.indexOf('\n')).split(" ")[2];
+                String[] campo = string.substring(string.indexOf('\n'), string.length()).split(" ");
+                for (Tabla tabTemp : tablas) {
+                    if (tabTemp.getNombre().equals(tableName)) {
+                        for (Campo cpm : tabTemp.getCampos()) {
+                            if (cpm.getNombre().equals(campo[2])) {
+                                tabTemp.getCampos().remove(cpm);
+                            }
+                        }
+                    }
+                }
+            }
+            er.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Base de datos")));
+            DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) model.getRoot();
+            for (Tabla tabla : tablas) {
+                DefaultMutableTreeNode nodoTabla = new DefaultMutableTreeNode(tabla);
+                DefaultMutableTreeNode normalCamp = new DefaultMutableTreeNode("Campos");
+                DefaultMutableTreeNode nodoPrimarios = new DefaultMutableTreeNode("Llaves primarias");
+                DefaultMutableTreeNode nodoForaneo = new DefaultMutableTreeNode("Llaves foráneas");
+                for (Campo campito : tabla.getCampos()) {
+                    if (campito.isPrimaria()) {
+                        if (campito.isPrimaria()) {
+                            nodoPrimarios.add(new DefaultMutableTreeNode(campito));
+                        }
+                    } else if (campito.isSecundaria()) {
+                        nodoForaneo.add(new DefaultMutableTreeNode(campito));
+                    } else {
+                        normalCamp.add(new DefaultMutableTreeNode(campito));
+                    }
+                }
+                nodoTabla.add(nodoPrimarios);
+                nodoTabla.add(nodoForaneo);
+                nodoTabla.add(normalCamp);
+                nodo.add(nodoTabla);
+            }
+            model.reload();
+            editor_dropcolumn.setText("");
+            sql_console_dropcolumn.setVisible(false);
+            this.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error de síntaxis.");
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void dropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropActionPerformed
+        sql_console_drop.setSize(531, 460);
+        sql_console_drop.setResizable(false);
+        sql_console_drop.setLocationRelativeTo(this);
+        this.setVisible(false);
+        sql_console_drop.setVisible(true);
+    }//GEN-LAST:event_dropActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        try {
+            String[] tableAll = editor_drop.getText().split(";\n");
+            for (String string : tableAll) {
+                String tableName = string.split(" ")[2];
+                for (int i = 0; i < tablas.size(); i++) {
+                    Tabla tabTemp = tablas.get(i);
+                    if (tabTemp.getNombre().equals(tableName)) {
+                        tablas.remove(tabTemp);
+                    }
+                }
+            }
+            er.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Base de datos")));
+            DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) model.getRoot();
+            for (Tabla tabla : tablas) {
+                DefaultMutableTreeNode nodoTabla = new DefaultMutableTreeNode(tabla);
+                DefaultMutableTreeNode normalCamp = new DefaultMutableTreeNode("Campos");
+                DefaultMutableTreeNode nodoPrimarios = new DefaultMutableTreeNode("Llaves primarias");
+                DefaultMutableTreeNode nodoForaneo = new DefaultMutableTreeNode("Llaves foráneas");
+                for (Campo campito : tabla.getCampos()) {
+                    if (campito.isPrimaria()) {
+                        if (campito.isPrimaria()) {
+                            nodoPrimarios.add(new DefaultMutableTreeNode(campito));
+                        }
+                    } else if (campito.isSecundaria()) {
+                        nodoForaneo.add(new DefaultMutableTreeNode(campito));
+                    } else {
+                        normalCamp.add(new DefaultMutableTreeNode(campito));
+                    }
+                }
+                nodoTabla.add(nodoPrimarios);
+                nodoTabla.add(nodoForaneo);
+                nodoTabla.add(normalCamp);
+                nodo.add(nodoTabla);
+            }
+            model.reload();
+            editor_drop.setText("");
+            sql_console_drop.setVisible(false);
+            this.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error de síntaxis.");
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        try {
+            String[] sentencias = editor_pk.getText().split(";\n");
+            for (String sentencia : sentencias) {
+                String[] comandos = sentencia.split(" ");
+                String nombre = comandos[2];
+                String campos = comandos[comandos.length - 1].replace("(", "").replace(")", "");
+                String[] campoS = campos.split(",");
+                for (Tabla tabTem : tablas) {
+                    if (tabTem.getNombre().equals(nombre) && !tabTem.isPrimarykey()) {
+                        for (String string : campoS) {
+                            for (Campo campotemp : tabTem.getCampos()) {
+                                if (campotemp.getNombre().equals(string)) {
+                                    campotemp.setPrimaria(true);
+                                }
+                            }
+                        }
+                    }
+                }
+                for (Tabla tabTem : tablas) {
+                    if (tabTem.equals(nombre) && !tabTem.isPrimarykey()) {
+                        tabTem.setPrimarykey(true);
+                    }
+                }
+            }
+            er.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Base de datos")));
+            DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) model.getRoot();
+            for (Tabla tabla : tablas) {
+                DefaultMutableTreeNode nodoTabla = new DefaultMutableTreeNode(tabla);
+                DefaultMutableTreeNode normalCamp = new DefaultMutableTreeNode("Campos");
+                DefaultMutableTreeNode nodoPrimarios = new DefaultMutableTreeNode("Llaves primarias");
+                DefaultMutableTreeNode nodoForaneo = new DefaultMutableTreeNode("Llaves foráneas");
+                for (Campo campito : tabla.getCampos()) {
+                    if (campito.isPrimaria()) {
+                        if (campito.isPrimaria()) {
+                            nodoPrimarios.add(new DefaultMutableTreeNode(campito));
+                        }
+                    } else if (campito.isSecundaria()) {
+                        nodoForaneo.add(new DefaultMutableTreeNode(campito));
+                    } else {
+                        normalCamp.add(new DefaultMutableTreeNode(campito));
+                    }
+                }
+                nodoTabla.add(nodoPrimarios);
+                nodoTabla.add(nodoForaneo);
+                nodoTabla.add(normalCamp);
+                nodo.add(nodoTabla);
+            }
+            model.reload();
+            editor_pk.setText("");
+            sql_console_pk.setVisible(false);
+            this.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error de síntaxis.");
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        String[] sentencias = editor_fk.getText().split(";\n");
+        for (String sentencia : sentencias) {
+            String[] comandos = sentencia.split(" ");
+            String nombre = comandos[2];
+            String nombre2 = comandos[7];
+            String campos = comandos[comandos.length - 1].replace("(", "").replace(")", "");
+            String[] campoS = campos.split(",");
+            for (String string : campoS) {
+                for (Tabla tabTemp : tablas) {
+                    if (tabTemp.getNombre().equals(nombre)) {
+                        for (Tabla tp : tablas) {
+                            if (tp.getNombre().equals(nombre2)) {
+                                for (Campo cps : tp.getCampos()) {
+                                    if (cps.getNombre().equals(campoS[1]) && cps.isPrimaria()) {
+                                        for (Campo cpss : tabTemp.getCampos()) {
+                                            if (cpss.getNombre().equals(campoS[0])) {
+                                                cpss.setSecundaria(true);
+                                                cpss.setReferencia1(campoS[1]);
+                                                cpss.setReferencia2(nombre2);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            er.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Base de datos")));
+            DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+            DefaultMutableTreeNode nodo = (DefaultMutableTreeNode) model.getRoot();
+            for (Tabla tabla : tablas) {
+                DefaultMutableTreeNode nodoTabla = new DefaultMutableTreeNode(tabla);
+                DefaultMutableTreeNode normalCamp = new DefaultMutableTreeNode("Campos");
+                DefaultMutableTreeNode nodoPrimarios = new DefaultMutableTreeNode("Llaves primarias");
+                DefaultMutableTreeNode nodoForaneo = new DefaultMutableTreeNode("Llaves foráneas");
+                for (Campo campito : tabla.getCampos()) {
+                    if (campito.isPrimaria()) {
+                        if (campito.isPrimaria()) {
+                            nodoPrimarios.add(new DefaultMutableTreeNode(campito));
+                        }
+                    } else if (campito.isSecundaria()) {
+                        nodoForaneo.add(new DefaultMutableTreeNode(campito));
+                    } else {
+                        normalCamp.add(new DefaultMutableTreeNode(campito));
+                    }
+                }
+                nodoTabla.add(nodoPrimarios);
+                nodoTabla.add(nodoForaneo);
+                nodoTabla.add(normalCamp);
+                nodo.add(nodoTabla);
+            }
+            model.reload();
+            editor_fk.setText("");
+            sql_console_fk.setVisible(false);
+            this.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void add_pkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_pkActionPerformed
+        sql_console_pk.setSize(531, 460);
+        sql_console_pk.setResizable(false);
+        sql_console_pk.setLocationRelativeTo(this);
+        this.setVisible(false);
+        sql_console_pk.setVisible(true);
+    }//GEN-LAST:event_add_pkActionPerformed
+
+    private void add_foregActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_foregActionPerformed
+        sql_console_fk.setSize(531, 460);
+        sql_console_fk.setResizable(false);
+        sql_console_fk.setLocationRelativeTo(this);
+        this.setVisible(false);
+        sql_console_fk.setVisible(true);
+    }//GEN-LAST:event_add_foregActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void reiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarActionPerformed
+        er.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Base de datos")));
+        DefaultTreeModel model = (DefaultTreeModel) er.getModel();
+        model.reload();
+        DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Proyecto");
+        DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Clases");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Interfaces");
+        treeNode1.add(treeNode2);
+        uml.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        ((DefaultTreeModel) uml.getModel()).reload();
+        clases = new ArrayList();
+        tablas = new ArrayList();
+        interfaces = new ArrayList();
+    }//GEN-LAST:event_reiniciarActionPerformed
+
+    private void informacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informacionActionPerformed
+        JOptionPane.showMessageDialog(null, "Vizio versión Beta 0.1.8\n"
+                + "Autor: César Figueroa\n"
+                + "Directorio: https://github.com/Cesar123456/Vizio\n"
+                + "Ingeniero Osman Mejía\n"
+                + "Programación II\n"
+                + "Universidad Tecnológica Centroamericana"
+        );
+    }//GEN-LAST:event_informacionActionPerformed
+
+    private void eliminar_todoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_todoActionPerformed
+        clase.setAtributos(new ArrayList());
+        clase.setMétodos(new ArrayList());
+        clase_atributos.setModel(new DefaultListModel());
+        clase_metodos.setModel(new DefaultListModel());
+    }//GEN-LAST:event_eliminar_todoActionPerformed
+
+    private void eliminar_todo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_todo2ActionPerformed
+        mtd_parametros.setModel(new DefaultListModel());
+        método.setParametros(new ArrayList());
+    }//GEN-LAST:event_eliminar_todo2ActionPerformed
+
+    private void eliminar_todo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_todo1ActionPerformed
+        intf_atributos.setModel(new DefaultListModel());
+        intf_métodos.setModel(new DefaultListModel());
+        Interface.setAtributos(new ArrayList());
+        Interface.setAtributos(new ArrayList());
+
+    }//GEN-LAST:event_eliminar_todo1ActionPerformed
+
     public void generarSubClases(DefaultMutableTreeNode clase) {
-        Clase claseExp = new Clase();
-        if (clase.getUserObject() instanceof Clase) {
-            Clase ref = (Clase) clase.getUserObject();
-            claseExp.setAbstracto(ref.isAbtracto());
-            claseExp.setNombre(ref.getNombre());
-            claseExp.setAtributos(ref.getAtributos());
-            claseExp.setInterfaces(ref.getInterfaces());
-            claseExp.setMétodos(new ArrayList<Método>());
-            for (Método mt : ref.getMétodos()) {
-                claseExp.getMétodos().add(mt);
+        try {
+            Clase claseExp = new Clase();
+            if (clase.getUserObject() instanceof Clase) {
+                Clase ref = (Clase) clase.getUserObject();
+                claseExp.setAbstracto(ref.isAbtracto());
+                claseExp.setNombre(ref.getNombre());
+                claseExp.setAtributos(ref.getAtributos());
+                claseExp.setInterfaces(ref.getInterfaces());
+                claseExp.setMétodos(new ArrayList<Método>());
+                for (Método mt : ref.getMétodos()) {
+                    claseExp.getMétodos().add(mt);
+                }
+                claseExp.setPadre(ref.getPadre());
+                claseExp.setVisibilidad(ref.getVisibilidad());
+                claseExp.createConstructor();
+                claseExp.GetterAndSetters();
+                claseExp.setToString();
+                generarClases(claseExp);
+                for (int i = 0; i < clase.getChildCount(); i++) {
+                    DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) clase.getChildAt(i);
+                    claseExp = new Clase();
+                    generarSubClases(hijo);
+                }
+            } else if (clase.getUserObject().equals("Clases")) {
+                for (int i = 0; i < clase.getChildCount(); i++) {
+                    DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) clase.getChildAt(i);
+                    claseExp = new Clase();
+                    generarSubClases(hijo);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una clase.");
             }
-            claseExp.setPadre(ref.getPadre());
-            claseExp.setVisibilidad(ref.getVisibilidad());
-            claseExp.createConstructor();
-            claseExp.GetterAndSetters();
-            claseExp.setToString();
-            generarClases(claseExp);
-            for (int i = 0; i < clase.getChildCount(); i++) {
-                DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) clase.getChildAt(i);
-                claseExp = new Clase();
-                generarSubClases(hijo);
-            }
-        } else if (clase.getUserObject().equals("Clases")) {
-            for (int i = 0; i < clase.getChildCount(); i++) {
-                DefaultMutableTreeNode hijo = (DefaultMutableTreeNode) clase.getChildAt(i);
-                claseExp = new Clase();
-                generarSubClases(hijo);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una clase.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Un error ha ocurrido.");
         }
     }
 
@@ -1217,9 +2148,23 @@ public class Main extends javax.swing.JFrame {
         codigo += " \r\n\t";
         for (Método mt : claseExp.getMétodos()) {
             if (mt.isOverWrite()) {
-                codigo += "@Override" + "\r\n\t";
+                if (codigo.charAt(codigo.length() - 1) == '\t') {
+                    codigo += "@Override" + "\r\n\t";
+                } else {
+                    codigo += "\t@Override" + "\r\n\t";
+                }
             }
-            codigo += mt.getVisibilidad() + " " + mt.getRetorno() + " " + mt.getNombre() + "(";
+            if (!mt.isAbstracto()) {
+                if (codigo.charAt(codigo.length() - 1) == '\t') {
+                    codigo += mt.getVisibilidad() + " " + mt.getRetorno() + " " + mt.getNombre() + "(";
+                } else {
+                    codigo += "\t" + mt.getVisibilidad() + " " + mt.getRetorno() + " " + mt.getNombre() + "(";
+                }
+            } else if (codigo.charAt(codigo.length() - 1) == '\t') {
+                codigo += mt.getVisibilidad() + " abstract " + mt.getRetorno() + " " + mt.getNombre() + "(";
+            } else {
+                codigo += "\t" + mt.getVisibilidad() + " " + mt.getRetorno() + " " + mt.getNombre() + "(";
+            }
             for (Atributo pt : mt.getParametros()) {
                 if (mt.getParametros().indexOf(pt) != mt.getParametros().size() - 1) {
                     codigo += pt.getTipo() + " " + pt.getNombre() + ", ";
@@ -1227,13 +2172,17 @@ public class Main extends javax.swing.JFrame {
                     codigo += pt.getTipo() + " " + pt.getNombre();
                 }
             }
-            codigo += ") { \r\n\t\t";
-            codigo += mt.getCuerpo();
-            codigo += "\r\n\t}\r\n\r\n";
+            if (!mt.isAbstracto()) {
+                codigo += ") { \r\n\t\t";
+                codigo += mt.getCuerpo();
+                codigo += "\r\n\t}\r\n\r\n";
+            } else {
+                codigo += ");\r\n\r\n";
+            }
             if (claseExp.getMétodos().indexOf(mt) != clase.getMétodos().size() - 1) {
                 codigo += "\t";
             } else {
-                codigo += "\r\n";
+                codigo += "\t\r\n";
             }
         }
         codigo = codigo.replaceAll("\\t*$", "");
@@ -1242,7 +2191,7 @@ public class Main extends javax.swing.JFrame {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            ar = new File("./" + claseExp.getNombre() + ".java");
+            ar = new File("./Clases/" + claseExp.getNombre() + ".java");
             fw = new FileWriter(ar, false);
             bw = new BufferedWriter(fw);
             bw.write(codigo);
@@ -1257,49 +2206,53 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void agregarAtributo(Object objeto) {
-        String nombre = atr_nombre.getText();
-        String tipo = atr_tipo.getSelectedItem().toString();
-        String encap = atr_scope.getSelectedItem().toString();
-        String valor = atr_valor.getText();
-        if (objeto instanceof Clase) {
-            Atributo atributo = new Atributo(nombre, tipo, encap, valor);
-            crear_atributo.setVisible(false);
-            Clase clase = ((Clase) objeto);
-            if (atributo.getValor().equals("")) {
-                atributo.setValor("null");
+        try {
+            String nombre = atr_nombre.getText();
+            String tipo = atr_tipo.getSelectedItem().toString();
+            String encap = atr_scope.getSelectedItem().toString();
+            String valor = atr_valor.getText();
+            if (objeto instanceof Clase) {
+                Atributo atributo = new Atributo(nombre, tipo, encap, valor);
+                crear_atributo.setVisible(false);
+                Clase clase = ((Clase) objeto);
+                if (atributo.getValor().equals("")) {
+                    atributo.setValor("null");
+                }
+                clase.getAtributos().add(atributo);
+                clase_atributos.setModel(new DefaultListModel());
+                DefaultListModel model = (DefaultListModel) clase_atributos.getModel();
+                clase.getAtributos().stream().forEach((attr) -> {
+                    model.addElement(attr);
+                });
+                crear_clase.setVisible(true);
+            } else if (objeto instanceof Interface) {
+                Atributo atributo = new Atributo(nombre, tipo, encap, valor);
+                if (atributo.getValor().equals("")) {
+                    atributo.setValor("null");
+                }
+                crear_atributo.setVisible(false);
+                Interface obj = ((Interface) objeto);
+                obj.getAtributos().add(atributo);
+                intf_atributos.setModel(new DefaultListModel());
+                DefaultListModel model = (DefaultListModel) intf_atributos.getModel();
+                obj.getAtributos().stream().forEach((attr) -> {
+                    model.addElement(attr);
+                });
+                crear_interface.setVisible(true);
+            } else if (objeto instanceof Método) {
+                Atributo atributo = new Atributo(nombre, tipo, encap, valor);
+                crear_atributo.setVisible(false);
+                Método mt = ((Método) objeto);
+                mt.getParametros().add(atributo);
+                mtd_parametros.setModel(new DefaultListModel());
+                DefaultListModel model = (DefaultListModel) mtd_parametros.getModel();
+                método.getParametros().stream().forEach((attr) -> {
+                    model.addElement(attr);
+                });
+                crear_método.setVisible(true);
             }
-            clase.getAtributos().add(atributo);
-            clase_atributos.setModel(new DefaultListModel());
-            DefaultListModel model = (DefaultListModel) clase_atributos.getModel();
-            clase.getAtributos().stream().forEach((attr) -> {
-                model.addElement(attr);
-            });
-            crear_clase.setVisible(true);
-        } else if (objeto instanceof Interface) {
-            Atributo atributo = new Atributo(nombre, tipo, encap, valor);
-            if (atributo.getValor().equals("")) {
-                atributo.setValor("null");
-            }
-            crear_atributo.setVisible(false);
-            Interface obj = ((Interface) objeto);
-            obj.getAtributos().add(atributo);
-            intf_atributos.setModel(new DefaultListModel());
-            DefaultListModel model = (DefaultListModel) intf_atributos.getModel();
-            obj.getAtributos().stream().forEach((attr) -> {
-                model.addElement(attr);
-            });
-            crear_interface.setVisible(true);
-        } else if (objeto instanceof Método) {
-            Atributo atributo = new Atributo(nombre, tipo, encap, valor);
-            crear_atributo.setVisible(false);
-            Método mt = ((Método) objeto);
-            mt.getParametros().add(atributo);
-            mtd_parametros.setModel(new DefaultListModel());
-            DefaultListModel model = (DefaultListModel) mtd_parametros.getModel();
-            método.getParametros().stream().forEach((attr) -> {
-                model.addElement(attr);
-            });
-            crear_método.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Un error ha ocurrido.");
         }
     }
 
@@ -1329,33 +2282,37 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void agregarInterface(Object objeto) {
-        if (!nodo_seleccionado.getUserObject().equals(Interface)) {
-            Interface.setNombre(intf_nombre.getText());
-            nodo_seleccionado.add(new DefaultMutableTreeNode(Interface));
-            interfaces.add(Interface);
-            DefaultTreeModel modelo = (DefaultTreeModel) uml.getModel();
-            modelo.reload();
-            clase_interfaces.setModel(new DefaultListModel());
-            DefaultListModel model = (DefaultListModel) clase_interfaces.getModel();
-            interfaces.stream().forEach((intf) -> {
-                model.addElement(intf);
-            });
-        } else {
-            Interface.setNombre(intf_nombre.getText());
-            intf_métodos.setModel(new DefaultListModel());
-            intf_atributos.setModel(new DefaultListModel());
-            intf_nombre.setText("");
+        try {
+            if (!nodo_seleccionado.getUserObject().equals(Interface)) {
+                Interface.setNombre(intf_nombre.getText());
+                nodo_seleccionado.add(new DefaultMutableTreeNode(Interface));
+                interfaces.add(Interface);
+                DefaultTreeModel modelo = (DefaultTreeModel) uml.getModel();
+                modelo.reload();
+                clase_interfaces.setModel(new DefaultListModel());
+                DefaultListModel model = (DefaultListModel) clase_interfaces.getModel();
+                interfaces.stream().forEach((intf) -> {
+                    model.addElement(intf);
+                });
+            } else {
+                Interface.setNombre(intf_nombre.getText());
+                intf_métodos.setModel(new DefaultListModel());
+                intf_atributos.setModel(new DefaultListModel());
+                intf_nombre.setText("");
+            }
+            crear_interface.setVisible(false);
+            this.setVisible(true);
+            Interface = null;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Un error ha ocurrido.");
         }
-        crear_interface.setVisible(false);
-        this.setVisible(true);
-        Interface = null;
 
     }
 
     public void atributo(Component comp) {
         atr_nombre.setText("");
         atr_valor.setText("");
-        crear_atributo.setSize(513, 260);
+        crear_atributo.setSize(513, 310);
         crear_atributo.setResizable(false);
         crear_atributo.setLocationRelativeTo(comp);
         if (comp.equals(crear_método)) {
@@ -1363,7 +2320,7 @@ public class Main extends javax.swing.JFrame {
             atr_scope.setVisible(false);
             jLabel7.setVisible(false);
             atr_valor.setVisible(false);
-            crear_atributo.setSize(513, 240);
+            crear_atributo.setSize(513, 310);
         } else {
             jLabel11.setVisible(true);
             atr_scope.setVisible(true);
@@ -1374,11 +2331,11 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void Clase(Object object) {
-        crear_clase.setSize(866, 480);
+        crear_clase.setSize(866, 500);
         crear_clase.setResizable(false);
         crear_clase.setLocationRelativeTo(null);
         if (object == null && !nodo_seleccionado.getUserObject().equals("Proyecto") && !nodo_seleccionado.getUserObject().equals("Interfaces")) {
-            int abstr = JOptionPane.showConfirmDialog(crear_clase, "¿Su clase es abstracta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int abstr = JOptionPane.showConfirmDialog(null, "¿Su clase es abstracta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (abstr == 0) {
                 clase = new Clase(true);
             } else {
@@ -1429,17 +2386,17 @@ public class Main extends javax.swing.JFrame {
             }
         }
         if (nodo_seleccionado.getUserObject().equals("Proyecto") || nodo_seleccionado.getUserObject().equals("Interfaces")) {
-            JOptionPane.showMessageDialog(this, "¡Aquí no puede añadir Clases!");
+            JOptionPane.showMessageDialog(null, "¡Aquí no puede añadir Clases!");
         } else {
-            crear_clase.setVisible(true);
             this.setVisible(false);
+            crear_clase.setVisible(true);
         }
     }
 
     public void metodo(Component comp) {
         int abstr;
         if (comp.equals(crear_clase) && clase.isAbtracto()) {
-            abstr = JOptionPane.showConfirmDialog(crear_clase, "¿Su método es abstracto?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            abstr = JOptionPane.showConfirmDialog(null, "¿Su método es abstracto?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         } else if (comp.equals(this.crear_interface)) {
             abstr = 0;
         } else {
@@ -1452,7 +2409,7 @@ public class Main extends javax.swing.JFrame {
             método = new Método();
             mtd_cuerpo.setEnabled(true);
         }
-        crear_método.setSize(605, 406);
+        crear_método.setSize(605, 456);
         crear_método.setResizable(false);
         crear_método.setLocationRelativeTo(comp);
         crear_método.setVisible(true);
@@ -1475,7 +2432,7 @@ public class Main extends javax.swing.JFrame {
                 model.addElement(atb);
             }
         }
-        crear_interface.setSize(568, 360);
+        crear_interface.setSize(568, 430);
         crear_interface.setLocationRelativeTo(null);
         this.setVisible(false);
         crear_interface.setVisible(true);
@@ -1530,6 +2487,9 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem add_column;
+    private javax.swing.JMenuItem add_foreg;
+    private javax.swing.JMenuItem add_pk;
     private javax.swing.JTextField atr_nombre;
     private javax.swing.JComboBox<String> atr_scope;
     private javax.swing.JComboBox<String> atr_tipo;
@@ -1550,7 +2510,19 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog crear_clase;
     private javax.swing.JDialog crear_interface;
     private javax.swing.JDialog crear_método;
+    private javax.swing.JMenuItem create;
+    private javax.swing.JTextArea create_editor;
+    private javax.swing.JMenuItem drop;
+    private javax.swing.JMenuItem drop_column;
+    private javax.swing.JTextArea editor_addcolumn;
+    private javax.swing.JTextArea editor_drop;
+    private javax.swing.JTextArea editor_dropcolumn;
+    private javax.swing.JTextArea editor_fk;
+    private javax.swing.JTextArea editor_pk;
     private javax.swing.JMenuItem eliminar_clase;
+    private javax.swing.JMenuItem eliminar_todo;
+    private javax.swing.JMenuItem eliminar_todo1;
+    private javax.swing.JMenuItem eliminar_todo2;
     private javax.swing.JTree er;
     private javax.swing.JMenuItem exportar;
     private javax.swing.JMenuItem importar;
@@ -1559,11 +2531,17 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JList<String> intf_métodos;
     private javax.swing.JTextField intf_nombre;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JLabel jLabel1;
@@ -1578,6 +2556,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1590,6 +2574,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1599,6 +2589,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu main_Clase;
     private javax.swing.JPopupMenu menuClass_Kit;
     private javax.swing.JPopupMenu menuIntf;
@@ -1613,6 +2609,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> mtd_tipo;
     private javax.swing.JMenuItem reiniciar;
     private javax.swing.JMenuItem salir;
+    private javax.swing.JPopupMenu sql_actions;
+    private javax.swing.JDialog sql_console_addcolumn;
+    private javax.swing.JDialog sql_console_create;
+    private javax.swing.JDialog sql_console_drop;
+    private javax.swing.JDialog sql_console_dropcolumn;
+    private javax.swing.JDialog sql_console_fk;
+    private javax.swing.JDialog sql_console_pk;
     private javax.swing.JTree uml;
     // End of variables declaration//GEN-END:variables
 }
